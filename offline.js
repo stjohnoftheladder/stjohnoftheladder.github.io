@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1714458610,
+	"version": 1716568844,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -17,6 +17,8 @@
 		"images/prayer_rope_holding-sheet0.png",
 		"images/prayer_rope_big-sheet0.png",
 		"images/stjohn_icon-sheet0.png",
+		"images/blue1-sheet0.png",
+		"images/crossnb-sheet0.png",
 		"images/os_coin-sheet0.png",
 		"images/os_health-sheet0.png",
 		"images/prayer_rope_small-sheet0.png",
@@ -29,6 +31,7 @@
 		"images/os_church-sheet0.png",
 		"images/solidbarrierin-sheet0.png",
 		"images/tiledbackground3.png",
+		"images/small_egg-sheet0.png",
 		"images/os_peer-sheet0.png",
 		"images/os_anglelos-sheet0.png",
 		"images/os_cursor-sheet0.png",

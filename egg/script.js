@@ -21,9 +21,9 @@ const dialogues = [
     { character: 'Junior Tempter', text: 'Simple, we’ll distract him with constant desires for more. More money, more praise, more entertainment—you name it.' },
     { character: 'Senior Demon', text: 'Wow, that’s diabolical. What about relationships?' },
     { character: 'Junior Tempter', text: 'We’ll encourage him to form shallow relationships based on what people can do for him rather than genuine connection.' },
-    { character: 'Senior Demon', text: 'Oh, so practical.' },
+    { character: 'Senior Demon', text: 'Oh, so very practical.' },
     { character: 'Junior Tempter', text: 'Super practical.' },
-	{ character: 'Senior Demon', text: 'Fantastic. You’ve done a great job here. Keep it up and soon enough, this human soul will be ours.' },
+	{ character: 'Senior Demon', text: 'You’ve done a great job here. Keep it up and soon enough, this human soul will be ours.' },
     { character: 'Junior Tempter', text: 'Thanks, sir. I won’t let you down.' }
 ];
 
