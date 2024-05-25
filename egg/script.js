@@ -14,16 +14,12 @@ const dialogues = [
     { character: 'Senior Demon', text: 'Perfect! How do you plan to keep him from realizing he’s being prideful?' },
     { character: 'Junior Tempter', text: 'We’ll just have him call it “confidence” and make him think humility is a sign of weakness.' },
     { character: 'Senior Demon', text: 'Brilliant. What else do you have?' },
-    { character: 'Junior Tempter', text: 'Well, he’s also materialistic but thinks he’s not, so I thought we’d keep him obsessed with wealth and status.' },
+    { character: 'Junior Tempter', text: 'Well, he’s also materialistic but thinks he’s not, so I thought we’d keep him obsessed with money and status.' },
     { character: 'Senior Demon', text: 'Oh, nice. How are we going to do that?' },
     { character: 'Junior Tempter', text: 'We’ll make him believe his value and happiness are tied to how much he owns and how successful he appears to others.' },
     { character: 'Senior Demon', text: 'That’s fantastic. How do we keep him from finding fulfillment in anything else?' },
-    { character: 'Junior Tempter', text: 'Simple, we’ll distract him with constant desires for more. More money, more praise, more entertainment—you name it.' },
-    { character: 'Senior Demon', text: 'Wow, that’s diabolical. What about relationships?' },
-    { character: 'Junior Tempter', text: 'We’ll encourage him to form shallow relationships based on what people can do for him rather than genuine connection.' },
-    { character: 'Senior Demon', text: 'Oh, so very practical.' },
-    { character: 'Junior Tempter', text: 'Super practical.' },
-	{ character: 'Senior Demon', text: 'You’ve done a great job here. Keep it up and soon enough, this human soul will be ours.' },
+    { character: 'Junior Tempter', text: 'Simple, we’ll distract him with constant desires for more. More of anything of the world—you name it. It’ll never be enough.' },
+    { character: 'Senior Demon', text: 'Wow, that’s diabolical. Keep it up and soon enough, this human soul will be ours.' },
     { character: 'Junior Tempter', text: 'Thanks, sir. I won’t let you down.' }
 ];
 
@@ -35,6 +31,7 @@ const dialogueContainer = document.getElementById('dialogue-container');
 const dialogueTextElement = document.getElementById('dialogue-text');
 const nextButton = document.getElementById('next-button');
 const exitButton = document.getElementById('exit-button');
+const exitButtons = document.querySelectorAll('.exit-button');
 const juniorTempterImage = document.getElementById('junior-tempter');
 const seniorDemonImage = document.getElementById('senior-demon');
 
@@ -72,6 +69,12 @@ nextButton.addEventListener('click', () => {
 exitButton.addEventListener('click', () => {
     window.close(); // attempt to close the window
     // window.location.href = 'some_other_page.html';
+});
+
+exitButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        window.close();
+    });
 });
 
 openingScreen.addEventListener('click', () => {
