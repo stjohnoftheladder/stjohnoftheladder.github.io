@@ -9,7 +9,7 @@ const dialogues = [
     { character: 'Junior Tempter', text: 'Oh, very arrogant. He’ll dismiss anyone who disagrees with him or questions his views.' },
     { character: 'Senior Demon', text: 'That’s good. And how do you get him to justify this?' },
     { character: 'Junior Tempter', text: 'Easy, we’ll make him think his intelligence and accomplishments entitle him to be condescending.' },
-    { character: 'Senior Demon', text: 'Nice! That way he’ll never listen to constructive criticism and keep making the same mistakes.' },
+    { character: 'Senior Demon', text: 'Nice! That way he’ll keep making the same mistakes.' },
     { character: 'Junior Tempter', text: 'Exactly. And as a bonus, we can make him really impatient with people who he thinks are less intelligent than him.' },
     { character: 'Senior Demon', text: 'Perfect! How do you plan to keep him from realizing he’s being prideful?' },
     { character: 'Junior Tempter', text: 'We’ll just have him call it “confidence” and make him think humility is a sign of weakness.' },
@@ -18,7 +18,7 @@ const dialogues = [
     { character: 'Senior Demon', text: 'Oh, nice. How are we going to do that?' },
     { character: 'Junior Tempter', text: 'We’ll make him believe his worth is tied to his possessions and how successful he appears to others.' },
     { character: 'Senior Demon', text: 'That’s fantastic. How do we keep him from finding real fulfillment?' },
-    { character: 'Junior Tempter', text: 'Simple, we’ll distract him with endless desires for more. More money, more praise, more worldly things, more worldly experiences—you name it. It’ll never be enough.' },
+    { character: 'Junior Tempter', text: 'Simple, we’ll distract him with endless desires for more. More money, more praise, more worldly things—you name it. It’ll never be enough.' },
     { character: 'Senior Demon', text: 'Wow, that’s diabolical. Keep it up and soon enough, this human soul will be ours.' },
     { character: 'Junior Tempter', text: 'Thanks, sir. I won’t let you down.' }
 ];
