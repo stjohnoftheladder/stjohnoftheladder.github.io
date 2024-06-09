@@ -34,12 +34,13 @@
         }
         .buttons a {
             display: inline-block;
-            padding: 10px 20px;
-            margin: 10px;
+            padding: 8px 15px;
+            margin: 5px;
             text-decoration: none;
             color: #fff;
             border-radius: 5px;
-            flex: 1 1 calc(50% - 20px);
+            font-size: 14px;
+            flex: 1 1 calc(50% - 10px); /* Adjust to fit 2 per row on mobile */
             box-sizing: border-box;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -86,11 +87,9 @@
             font-size: 2em;
             margin: 20px 0;
         }
-        @media (max-width: 600px) {
+        @media (min-width: 600px) {
             .buttons a {
-                flex: 1 1 100%;
-                margin: 5px 0;
-                white-space: normal; /* Allow text to wrap */
+                flex: 1 1 calc(33.33% - 10px); /* Adjust to fit 3 per row on desktop */
             }
         }
     </style>
@@ -110,15 +109,15 @@
         <h1>Thank You for Playing</h1>
         <p>As a token of appreciation, please download this image.<br>Share a link to the game with others if you like.</p>
         <img src="stjohnoftheladder.gift.png" alt="Gift Image">
-        <p><a href="http://stjohnoftheladder.com">http://stjohnoftheladder.com</a></p>
+        <p>Check out this game <a href="http://stjohnoftheladder.com">http://stjohnoftheladder.com</a></p>
         <div class="buttons">
             <a href="javascript:void(0)" onclick="downloadImage()" class="download-btn">Download Image</a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=http://stjohnoftheladder.com" target="_blank" class="facebook-btn">Share on Facebook</a>
-            <a href="https://twitter.com/intent/tweet?url=http://stjohnoftheladder.com&text=Check%20out%20this%20game" target="_blank" class="twitter-btn">Share on Twitter/X</a>
-             <a href="https://telegram.me/share/url?url=http://stjohnoftheladder.com&text=Check%20out%20this%20game" target="_blank" class="telegram-btn">Share on Telegram</a>
-			<a href="https://www.instagram.com/?url=http://stjohnoftheladder.com&media=https://stjohnoftheladder.github.io/egg/stjohnoftheladder.gift.png" target="_blank" class="instagram-btn">Share on Instagram</a>
-            <a href="sms:?&body=Check out this game http://stjohnoftheladder.com" class="text-btn">Share via Text</a>
-            <a href="mailto:?subject=Check out this game&body=http://stjohnoftheladder.com" class="email-btn">Share via Email</a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=http://stjohnoftheladder.com" target="_blank" class="facebook-btn">Facebook</a>
+            <a href="https://twitter.com/intent/tweet?url=http://stjohnoftheladder.com&text=Check%20out%20this%20game" target="_blank" class="twitter-btn">Twitter/X</a>
+             <a href="https://telegram.me/share/url?url=http://stjohnoftheladder.com&text=Check%20out%20this%20game" target="_blank" class="telegram-btn">Telegram</a>
+			<a href="https://www.instagram.com/?url=http://stjohnoftheladder.com&media=https://stjohnoftheladder.github.io/egg/stjohnoftheladder.gift.png" target="_blank" class="instagram-btn">Instagram</a>
+            <a href="sms:?&body=Check out this game http://stjohnoftheladder.com" class="text-btn">Text</a>
+            <a href="mailto:?subject=Check out this game&body=http://stjohnoftheladder.com" class="email-btn">Email</a>
         </div>
         <div class="definition">
             <h2>Theosis</h2>
@@ -146,12 +145,12 @@
             <a href="https://chat.openai.com/" target="_blank">https://chat.openai.com/</a></p>
 			<br>
             <h2>Intentions</h2>
-            <p>I'm hoping this leads to conversations similar to what I had with my sponsor when he lent me "30 Steps to Heaven" but instead with a link...</p>
+            <p>I'm hoping this leads to conversations like I had with my sponsor when he lent me "30 Steps to Heaven" but instead with a link...</p>
             <blockquote>
-                Future Sponsor: Have you heard of St. John of the Ladder?<br>
+                Orthodox: Have you heard of St. John of the Ladder?<br>
                 Me: No.<br>
-                Future Sponsor: Check out <a href="https://orthodoxamerica.org/" target="_blank">stjohnoftheladder.com</a><br>
-                Me: {Checks out link, a year later baptized into the Orthodox Church}
+                Orthodox: Check out <a href="https://orthodoxamerica.org/" target="_blank">stjohnoftheladder.com</a><br>
+                Me: {Checks out link, a year later baptized into the Church}
             </blockquote>
             <center>
                 <img src="church.png" alt="Church">
