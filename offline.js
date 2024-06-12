@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1718135532,
+	"version": 1718158009,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -34,6 +34,8 @@
 		"images/o_close-sheet0.png",
 		"images/o_dialog-sheet0.png",
 		"images/o_dialog_bg-sheet0.png",
+		"images/os_rungbar-sheet0.png",
+		"images/os_church2-sheet0.png",
 		"images/os_peer-sheet0.png",
 		"images/os_peer-sheet1.png",
 		"images/os_peer-sheet2.png",
