@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1718233099,
+	"version": 1718513739,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -48,6 +48,7 @@
 		"images/touch_left-sheet0.png",
 		"images/os_stjohn-sheet0.png",
 		"images/os_stjohn-sheet1.png",
+		"images/prayer_rope_demo-sheet0.png",
 		"images/tilemap.png",
 		"images/tiledbackground.png",
 		"images/tiledbackground2.png",
