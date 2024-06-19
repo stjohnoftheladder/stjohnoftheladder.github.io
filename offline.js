@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1718728350,
+	"version": 1718778260,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -9,7 +9,6 @@
 		"images/titleimage-sheet0.png",
 		"images/os_button-sheet0.png",
 		"images/os_overlay-sheet0.png",
-		"images/os_textbackground-sheet0.png",
 		"images/of_infogrey.png",
 		"images/of_infored.png",
 		"images/of_infowhite.png",
@@ -36,6 +35,7 @@
 		"images/o_dialog_bg-sheet0.png",
 		"images/os_rungbar-sheet0.png",
 		"images/os_church2-sheet0.png",
+		"images/mini_ladder-sheet0.png",
 		"images/os_peer-sheet0.png",
 		"images/os_peer-sheet1.png",
 		"images/os_peer-sheet2.png",
@@ -49,6 +49,7 @@
 		"images/os_stjohn-sheet0.png",
 		"images/os_stjohn-sheet1.png",
 		"images/prayer_rope_demo-sheet0.png",
+		"images/os_textbackground-sheet0.png",
 		"images/tilemap.png",
 		"images/tiledbackground.png",
 		"images/tiledbackground2.png",
