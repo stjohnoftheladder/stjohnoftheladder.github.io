@@ -33197,6 +33197,7 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Browser.prototype.cnds.OnUpdateFound,
 	cr.plugins_.Browser.prototype.cnds.PageVisible,
 	cr.plugins_.Browser.prototype.acts.ExecJs,
+	cr.plugins_.Browser.prototype.exps.ExecJS,
 	cr.plugins_.TextBox.prototype.cnds.OnTextChanged,
 	cr.plugins_.Button.prototype.acts.SetEnabled,
 	cr.plugins_.Touch.prototype.cnds.IsInTouch,
