@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="stjohn.css">
-    <title>Document</title>
+    <title>Login - Saint John of the Ladder: An Intro to Orthodoxy Game</title>
 </head>
 <body>
     
@@ -22,7 +22,8 @@
     
                 
                 <div id="name-entry">
-                    <input  class="pixel-text-box" type="text" id="username" placeholder="Enter your name...">
+                    <input class="pixel-text-box" type="text" autofocus id="username" placeholder="Enter your name..." maxlength="10" oninput="checkLength(this)">
+					<div id="max-message"></div>
                     <button id="login" class="pixel-text-box" value="Login" onclick="login()">Climb The Ladder</button>
                 </div>
             </div>
@@ -48,5 +49,22 @@
             }
         }
     </script>
+	<script>
+        function checkLength(input) {
+            var maxLength = 10;
+            var currentLength = input.value.length;
+
+            if (currentLength >= maxLength) {
+                document.getElementById('max-message').textContent = 'Max reached';
+            } else {
+                document.getElementById('max-message').textContent = '';
+            }
+        }
+    </script>
+	    <script>
+			document.getElementById('visit').addEventListener('click', function() {
+			window.open('https://orthodoxyinamerica.org', '_blank');
+			});
+		</script>
 </body>
 </html>

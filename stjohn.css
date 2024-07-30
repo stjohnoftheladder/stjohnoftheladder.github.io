@@ -144,6 +144,10 @@ body{
     animation: none;
 }
 
+#max-message{
+    color: black;
+}
+
 .pixel-text-box:hover{
     -webkit-filter: brightness(110%);
     filter: brightness(110%);
