@@ -1,0 +1,52 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stjohn.css">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div 
+    id="site-container"
+    class="columns"
+    >
+
+
+        <div class="game-column" id="game">
+            <div id="splash-container">
+                <div id="title-info">
+                    <h1 id="game-title">St. John Of The Ladder</h1>
+                    <h2 id="game-subtitle">An Intro To Orthodoxy Game</h2>
+                </div>
+    
+                
+                <div id="name-entry">
+                    <input  class="pixel-text-box" type="text" placeholder="Enter your name...">
+                    <button id="login" class="pixel-text-box" onclick="login()">Climb The Ladder</button>
+                </div>
+            </div>
+            
+
+            <div id="visit-container">
+                <button id="visit" class="pixel-text-box">Visit a Church Near You</button>
+            </div>
+            
+            
+            
+        </div>
+
+    </div>
+    <script>
+        function login() {
+            var Username = document.getElementById('Username').value;
+            if (Username) {
+                sessionStorage.setItem('Username', Username);
+                window.location.href = 'index.html'; // Redirect to the main game URL
+            } else {
+                alert('Please enter your name');
+            }
+        }
+    </script>
+</body>
+</html>
