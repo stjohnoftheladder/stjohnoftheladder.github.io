@@ -22,7 +22,7 @@
     
                 
                 <div id="name-entry">
-                    <input  class="pixel-text-box" type="text" id="Username" placeholder="Enter your name...">
+                    <input  class="pixel-text-box" type="text" id="username" placeholder="Enter your name...">
                     <button id="login" class="pixel-text-box" value="Login" onclick="login()">Climb The Ladder</button>
                 </div>
             </div>
@@ -39,9 +39,9 @@
     </div>
     <script>
         function login() {
-            var Username = document.getElementById('Username').value;
-            if (Username) {
-                sessionStorage.setItem('Username', Username);
+            var username = document.getElementById('username').value;
+            if (username) {
+                sessionStorage.setItem('username', username);
                 window.location.href = 'index.html'; // Redirect to the main game URL
             } else {
                 alert('Please enter your name');
