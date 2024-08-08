@@ -22,7 +22,7 @@
     
                 
                 <div id="name-entry">
-                    <input class="pixel-text-box" type="text" autofocus id="username" placeholder="Enter your name..." maxlength="10" oninput="checkLength(this)">
+                    <input class="pixel-text-box" type="text" autofocus id="username" placeholder="Enter your name..." maxlength="10" oninput="checkLength(this)" onkeydown="checkEnter(event)">
 					<div id="max-message"></div>
                     <button id="login" class="pixel-text-box" value="Login" onclick="login()">Climb The Ladder</button>
                 </div>
