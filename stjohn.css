@@ -55,7 +55,8 @@ body{
     display: inline-block;
     text-align: center;
     justify-content: center;
-    background: lightblue url(assets/images/stjohn_icon-sheet0.png) center no-repeat;
+    background: url(assets/images/stjohn_icon-sheet0.png) center no-repeat;
+    background-color: gold;
     background-position: bottom left;
     animation: bg-slide 75s linear infinite reverse;
     overflow: hidden;

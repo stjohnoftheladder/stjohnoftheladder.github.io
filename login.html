@@ -45,7 +45,8 @@
                 sessionStorage.setItem('username', username);
                 window.location.href = 'index.html'; // Redirect to the main game URL
             } else {
-                alert('Please enter your name');
+                sessionStorage.setItem('Pilgrim', username);
+				window.location.href = 'index.html';
             }
         }
     </script>
