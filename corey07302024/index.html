@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Saint John of the Ladder</title>
+	<title>Saint John of the Ladder: An Intro to Orthodoxy Game</title>
 	
 	<!-- Standardised web app manifest -->
 	<link rel="manifest" href="appmanifest.json" />
@@ -26,6 +26,7 @@
 			margin: 0;
 		}
 		html, body {
+			overscroll-behavior: none;
 			background: #000;
 			color: #fff;
 			overflow: hidden;
@@ -38,7 +39,12 @@
 			-ms-touch-action: none;
 		}
     </style>
-	
+	<script>
+        // Redirect to the login screen if the player name is not set
+        if (!sessionStorage.getItem('username')) {
+            window.location.href = 'login.html';
+        }
+    </script>
 
 </head> 
  
