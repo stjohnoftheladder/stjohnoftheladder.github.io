@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demon Pitch Meeting</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<button class="exit-button">X</button>
+    <div id="opening-screen">
+        <img id="door-image" src="door.png" alt="Hell Door">
+        <div id="door-text">Tap to Continue</div>
+		<p>
+		Inspired by Ryan George's "Pitch Meetings" on YouTube & C.S. Lewis' "Screwtape Letters"
+    </div>
+    <div id="dialogue-container" style="display: none;">
+        <div id="characters">
+            <img id="junior-tempter" src="junior-tempter.png" alt="Junior Tempter">
+            <img id="senior-demon" src="senior-demon.png" alt="Senior Demon">
+        </div>
+        <div id="dialogue-text"></div>
+        <button id="next-button">Next</button>
+        <button id="exit-button" style="display: none;">Exit</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

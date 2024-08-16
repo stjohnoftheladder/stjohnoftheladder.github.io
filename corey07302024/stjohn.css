@@ -1,0 +1,215 @@
+@font-face {
+    font-family: "CyrillicPixel";
+    src: url(assets/fonts/CyrillicPixel.ttf);
+}
+@font-face {
+    font-family: "PixelEmulator";
+    src: url(assets/fonts/PixelEmulator.ttf);
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+.columns{
+    display: grid;
+}
+
+.game-column{
+    min-width: 375px;
+    min-height: 667px;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 100vh;
+}
+
+.pixel-text-box{
+    display: grid;
+    font-family: "PixelEmulator";
+    font-size: .9em;
+    width: 50%;
+    text-align: center;
+    border-radius: 0px;
+    border: none;
+    text-decoration: none;
+    margin: .5em;
+    padding: .5em;
+    background-color: rgb(131, 162, 165);
+    color: var(--dark-blue);
+
+    box-shadow: 
+    -4px 0px lightgray inset,
+    4px 0px  0px rgb(78, 78, 78),
+    0px 4px  0px rgb(90, 90, 90),
+    -4px 0px  0px rgb(179, 179, 179),
+    0px -4px  0px rgb(172, 172, 172),
+    0px 4px 10px var(--blue-shadow),
+    0px 5px 10px var(--blue-shadow),
+    0px 0px 15px var(--blue-shadow);
+}
+
+#game{
+    display: inline-block;
+    text-align: center;
+    justify-content: center;
+    background: url(assets/images/stjohn_icon-sheet0.png) center no-repeat;
+    background-color: gold;
+    background-position: bottom left;
+    animation: bg-slide 75s linear infinite reverse;
+    overflow: hidden;
+}
+
+#splash-container{
+    margin: auto;
+    position: absolute;
+    min-width: 375px;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translateY(-50%) translateX(-50%);
+    transform: translateY(-50%) translateX(-50%);
+
+}
+
+#title-info{
+    position: relative;
+    animation-name: title-top-down;
+    animation-duration: 3s;
+}
+
+#game-title{
+    font-family: "CyrillicPixel", serif;
+    font-size: 4.25em;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    margin: 0px auto;
+    color: var(--gold-text);
+    text-shadow: 0px -2px 0px rgb(255, 247, 153),
+    0px 4px var(--dark-blue),
+    0px 10px 4px var(--blue-shadow),
+    0px 0px 15px var(--blue-shadow);
+}
+#game-subtitle{
+    font-family: "CyrillicPixel", serif;
+    font-size: 1.6em;
+    position:relative;
+    text-align: center;
+    width: 90%;
+    margin: .5em auto;
+    color: var(--gold-text);
+    text-shadow: 0px -2px 0px rgb(255, 247, 153),
+    0px 3px 0px var(--dark-blue),
+    0px 10px 4px var(--blue-shadow),
+    0px 0px 15px var(--blue-shadow);
+}
+
+#name-entry{
+    position: relative;
+    text-align: center;
+    align-items: center;
+    margin: 3em auto 0px auto;
+    display: grid;
+    justify-items: center;
+    animation-name: entry-bottom-up;
+    animation-duration: 3s;
+    width: 100%;
+}
+
+#name-entry>input{
+    padding: .5em;
+    margin: 1em;
+    color: black;
+    filter: hue-rotate(240deg) contrast(150%);
+
+}
+
+#login{
+    width: 40%;
+}
+
+#visit-container{
+    position: fixed;
+    bottom: 2em;
+    text-align: center;
+    width: 100%;
+}
+
+#visit{
+    margin: auto;
+    width: 200px;
+    filter: grayscale(100%);
+    animation: none;
+}
+
+#max-message{
+    color: black;
+}
+
+.pixel-text-box:hover{
+    -webkit-filter: brightness(110%);
+    filter: brightness(110%);
+}
+.pixel-text-box:focus{
+    outline: 4px solid #fafafa44;
+    filter: inherit brightness(110%);
+    box-shadow: inherit,
+    0px 0px 20px white,
+    0px 0px 20px white,
+    0px 0px 20px white;
+    animation: pulse-focus .5s alternate infinite;
+}
+
+/* -----ANIMATION------*/
+
+@keyframes title-top-down{
+    0%   { top: -300px; opacity:   0%;}
+    100% { top:    0px; opacity: 100%;}
+}
+@keyframes entry-bottom-up{
+    0%   { top: 300px; opacity:   0%;}
+    100% { top:   0px; opacity: 100%;}
+}
+@keyframes bg-slide{
+    0%   {background-size: 175%; background-position: 95% 5%;}
+    33%  {background-size: 150%; background-position: 5% 95%;}
+    50%  {background-size: 125%; background-position: 95% 95%;}
+    100% {background-size: 175%; background-position: 95% 5%;}
+}
+@keyframes bg-slide-high-dpr{
+    0%   {background-size: 250%; background-position: 95% 5%;}
+    33%  {background-size: 275%; background-position: 5% 95%;}
+    66%  {background-size: 250%; background-position: 95% 95%;}
+    100% {background-size: 250%; background-position: 95% 5%;}
+}
+@keyframes pulse-focus{
+    0%   {outline: 4px solid #fafafa66; filter: inherit brightness(125%);}
+    0%   {outline: 4px solid #fafafa22; filter: inherit brightness(105%);}
+}
+
+@media (width < 600px){
+
+    .game-column{
+        width:100vw;
+    }
+
+    #game-title{
+        margin: 0vh 0px 0px 0px;
+    }
+
+    #game{
+        animation: bg-slide-high-dpr 75s linear infinite reverse ;
+    }
+
+}
+
+
+:root{
+    --gold-text: rgb(241, 220, 151);
+    --dark-blue: #224;
+    --blue-shadow: #13292a8f
+}
+
