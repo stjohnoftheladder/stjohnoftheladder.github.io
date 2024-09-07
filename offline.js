@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1722377624,
+	"version": 1725720349,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -28,6 +28,9 @@
 		"images/tiledbackground3.png",
 		"images/small_egg-sheet0.png",
 		"images/candle-sheet0.png",
+		"images/obj_point_light_player-sheet0.png",
+		"images/tiledbackground2.png",
+		"images/tiledbackground.png",
 		"images/o_button_1-sheet0.png",
 		"images/o_button_2-sheet0.png",
 		"images/o_close-sheet0.png",
@@ -51,8 +54,6 @@
 		"images/prayer_rope_demo-sheet0.png",
 		"images/os_textbackground-sheet0.png",
 		"images/tilemap.png",
-		"images/tiledbackground.png",
-		"images/tiledbackground2.png",
 		"media/churchbell.m4a",
 		"media/churchbell.ogg",
 		"media/abbot.tryphon1.m4a",

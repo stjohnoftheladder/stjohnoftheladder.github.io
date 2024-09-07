@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stjohn.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+        <div class="login-page" id="login-page">
+            <div id="splash-container">
+                <div id="title-info">
+                    <h1 id="game-title">St. John Of The Ladder</h1>
+                    <h2 id="game-subtitle">An Intro To Orthodoxy Game</h2>
+                </div>
+    
+                
+                <div id="name-entry">
+                    <input  class="pixel-text-box" type="text" placeholder="Enter your name...">
+                    <button id="login" class="pixel-text-box">Climb the Ladder</button>
+                </div>
+            </div>
+            
+
+            <div id="visit-container">
+                <button id="visit" class="visit red-bg pixel-text-box">Visit a Church Near You!</button>
+            </div>
+        
+        </div>
+
+
+        <div class="game-column" id="game">
+
+            <div class="pixel-window center-vh" id="play-menu">
+                <div class="pixel-text-box title-bar">
+                    <span class="title">======== Menu ======</span>
+                    <button class="pixel-text-box window-exit" id="menu-close"
+                            onclick="toggleMenu()">
+                        X
+                    </button>
+                </div>
+                <div class="pixel-div client-area">
+                    <div  class="pixel-progress" id="game-progress-slider">
+                        <img src="assets/images/os_church2-sheet0.png" alt="">
+                        <div class="pixel-progress-bar" id="game-progress-bar">
+
+                        </div>
+                    </div>
+                    <button class="pixel-text-box"  id="menu-mute" 
+                            onclick="toggleAudio()" value="on">
+                        Audio <span id="audio-state">ON</span>
+                    </button>
+                    <button class="pixel-text-box" id="menu-game-exit">
+                        About
+                    </button>
+                    <button   class="pixel-text-box red-bg" id="menu-visit">
+                        Visit a Church Near You!
+                    </button>
+                    
+                </div>
+            </div>
+            <button class="pixel-text-box icon-box" id="play-menu-toggle"
+                onclick="toggleMenu()">
+                <svg width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" >
+                    <rect width="240" height="40" x="40" y="50"   />
+                    <rect width="240" height="40" x="40" y="140"   />
+                    <rect width="240" height="40" x="40" y="230"   />
+                  </svg>
+            </button>
+
+            <div id="ui-window-container">
+                <div class="pixel-window" id="steps-window">
+                    <div class="pixel-div client-area" id="steps-client-area">
+                        <!--button class="pixel-text-box" id="steps-exit"
+                                onclick="toggleSteps()">
+                            <em>_</em>
+                        </button-->
+                        <div class="message-area chat-font" id="steps">
+                            Renounce the World - Decide to follow God's ways, not just what everyone else does.
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="pixel-window" id="chat-window">
+                    <div class="pixel-div client-area" id="chat-client-area">
+                        <div class="message-area chat-font" id="chat">
+                            <div class="message system-info">Connected, logging in...</div>
+                            <div class="message system-info">Logged in as: COREY</div>
+                            <div class="message system-info">You are the host</div>
+                            <div class="message system-info">'<span class="user-name">Happy</span>' joined</div>
+                            <div class="message player-chat"><span class="user-name">Corey</span>: hello happy how are you today I hope you are doing well have you heard about our lord and savior Jesus Christ and the church that he founded?</div>
+                            <div class="message system-info">'Happy' left</div>
+                            <div class="message system-err">Signalling error: error</div>
+                            <div class="message system-info">Connected, logging in...</div>
+                            <div class="message system-info">Logged in as: COREY</div>
+                            <div class="message system-info">You are the host</div>
+                            <div class="message system-info">'Grumpy' joined</div>
+                            <div class="message player-chat">Corey: hello grumpy how are you today I hope you are doing well have you heard about our lord and savior Jesus Christ and the church that he founded?</div>
+                            <div class="message system-info">'Grumpy' left</div>
+                            <div class="message system-err">Signalling error: error</div>
+                            <div class="message system-info">Connected, logging in...</div>
+                            <div class="message system-info">Logged in as: COREY</div>
+                            <div class="message system-info">You are the host</div>
+                            <div class="message system-info">'Sleepy' joined</div>
+                            <div class="message player-chat">Corey: hello sleepy how are you today I hope you are doing well have you heard about our lord and savior Jesus Christ and the church that he founded?</div>
+                            <div class="message system-info">'Sleepy' left</div>
+                            <div class="message system-err">Signalling error: error</div>
+                        </div>
+                        
+                        <div id="message-input">
+                            <input  class="pixel-text-box" id="chat-input" type="text" placeholder="Message...">
+                            <button id="chat-send" class="pixel-text-box" onclick="sendMessage()">Send</button>
+                        </div>
+                        <button class="pixel-text-box" id="chat-exit"
+                                onclick="toggleChat()">
+                            <em>_</em>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="ui-dock">
+                <button class="pixel-text-box icon-box" id="chat-window-toggle"
+                onclick="toggleChat()">
+                    <svg id="chat-icon" width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+                        <style>
+                        </style>
+                        <rect width="180" height="20" x="70" y="60"  />
+                        <rect width="100" height="20" x="70" y="180"   />
+                        <rect width="20" height="100" x="50" y="80"   />
+                        <rect width="20" height="160" x="250" y="80"   />
+                        <rect width="40" height="20"  x="170" y="200"  />
+                        <rect width="20" height="20"  x="210" y="220"  />
+                        <rect width="20" height="20"  x="230" y="240"  />
+                        <rect width="20" height="20"  x="100" y="120"  />
+                        <rect width="20" height="20"  x="150" y="120"  />
+                        <rect width="20" height="20"  x="200" y="120"  />
+                    </svg>  
+                </button>
+                <button class="pixel-text-box icon-box" id="steps-window-toggle"
+                onclick="toggleSteps()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 24 24">
+                    <style>
+                        *{
+                            fill:#ccc;
+                        }
+                    </style>
+                   <use xlink:href="assets/icons/book.svg#book"></use> 
+                </svg>
+                </button>
+            </div>
+
+
+
+
+
+        </div>
+
+        <div id="debug">
+            <button class="pixel-text-box red-filter" onclick="toggleSplash()">Toggle Splash</button>
+            <div class="pixel-text-box">
+                <span>progress </span>
+                <span id="zoom-level">30</span>
+                <input type="range" min="1" max="30" value="30" class="slider" id="zoom-slider">
+            </div>
+        </div>
+        
+
+</body>
+
+<script src="stjohn.js"></script>
+</html>

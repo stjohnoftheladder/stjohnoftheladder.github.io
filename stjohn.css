@@ -6,28 +6,51 @@
     font-family: "PixelEmulator";
     src: url(assets/fonts/PixelEmulator.ttf);
 }
+@font-face {
+    font-family: "SFPixelate";
+    src: url(assets/fonts/SFPixelate.ttf);
+}
 
+html{
+    overflow: hidden;
+}
 body{
     margin: 0;
     padding: 0;
-    height: 100vh;
+    max-height: 100vh;
 }
 
-.columns{
-    display: grid;
-}
+/*----- UTILITY AND UNIVERSAL ----*/
 
+#site-container{
+    height: 100%;
+}
+.center-vh{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+.client-area{
+    min-height: max-content;
+}
 .game-column{
     min-width: 375px;
     min-height: 667px;
     position: relative;
     display: inline-block;
-    width: 100%;
+    margin: 0px 33%;
+    width: 33%;
     height: 100vh;
 }
 
+
+
+
+/*----- PIXEL UI -----*/
+
 .pixel-text-box{
-    display: grid;
+    display: inline-block;
     font-family: "PixelEmulator";
     font-size: .9em;
     width: 50%;
@@ -37,31 +60,171 @@ body{
     text-decoration: none;
     margin: .5em;
     padding: .5em;
-    background-color: rgb(131, 162, 165);
-    color: var(--dark-blue);
+    background-color: var(--button-bg);
+    color: var(--main-font);
+    z-index: 5;
 
     box-shadow: 
-    -4px 0px lightgray inset,
-    4px 0px  0px rgb(78, 78, 78),
-    0px 4px  0px rgb(90, 90, 90),
-    -4px 0px  0px rgb(179, 179, 179),
-    0px -4px  0px rgb(172, 172, 172),
+    4px 4px var(--pixel-shadow-inset) inset,
+    4px 0px  0px var(--pixel-shadow-bot),
+    0px 4px  0px var(--pixel-shadow-right),
+    -4px 0px  0px var(--pixel-shadow-left),
+    0px -4px  0px var(--pixel-shadow-top),
     0px 4px 10px var(--blue-shadow),
     0px 5px 10px var(--blue-shadow),
     0px 0px 15px var(--blue-shadow);
 }
-
-#game{
-    display: inline-block;
+.pixel-text-box:hover{
+    -webkit-filter: brightness(110%);
+    filter: brightness(110%);
+}
+.pixel-text-box:focus{
+    outline: -4px solid #aaaaff;
+    filter: brightness(110%);
+    z-index: 6;
+    box-shadow: inherit,
+    0px 0px 20px white,
+    0px 0px 20px white,
+    0px 0px 20px white;
+    animation: pulse-focus 1s  alternate infinite;
+}
+.pixel-window{
     text-align: center;
-    justify-content: center;
-    background: url(assets/images/stjohn_icon-sheet0.png) center no-repeat;
-    background-color: gold;
-    background-position: bottom left;
-    animation: bg-slide 75s linear infinite reverse;
-    overflow: hidden;
+    border-radius: 0px;
+    border: solid 8px var(--button-bg);
+    text-decoration: none;
+    margin: .5em;
+    padding: .5em;
+    background-color: var(--window-bg);
+    color: var(--main-font);
+
+    box-shadow: 
+    -4px -4px var(--pixel-shadow-inset) inset,
+    4px 4px #2224 inset,
+    4px 0px  0px var(--pixel-shadow-bot),
+    0px 4px  0px var(--pixel-shadow-right),
+    -4px 0px  0px var(--pixel-shadow-left),
+    0px -4px  0px var(--pixel-shadow-top),
+    0px 4px 10px var(--blue-shadow),
+    0px 5px 10px var(--blue-shadow),
+    0px 0px 15px var(--blue-shadow);
+}
+.pixel-window>.title-bar{
+    position: relative;
+    display: flex;
+    top: -16px;
+    margin: -20px 0px 20px -16px;
+    width: calc( 100% + 32px );
+    padding: 0px;
+    height: 3em;
+    box-shadow: 
+    -4px 0px var(--pixel-shadow-inset) inset,
+    4px 0px  0px var(--pixel-shadow-bot),
+    0px 4px  0px var(--pixel-shadow-right),
+    -4px 0px  0px var(--pixel-shadow-left),
+    0px -4px  0px var(--pixel-shadow-top),
+    0px 4px 10px var(--blue-shadow);
+    text-shadow:
+    0px 2px 4px #0006
+    ;
+}
+.pixel-window>.title-bar:hover{
+    -webkit-filter: none;
+    filter: none;
+}
+.pixel-window>.title-bar>button{
+    height: 32px;
+    width: 32px;
+    text-align: center;
+}
+.pixel-window>.title-bar>.title{
+    display: inline-block;
+    position: relative;
+    margin: auto auto;
+    width:100%;
+    font-size: 1.2em;
+}
+.pixel-progress{
+    display: inline-block;
+    float: right;
+    font-family: "PixelEmulator";
+    font-size: .9em;
+    text-align: center;
+    border-radius: 0px;
+    border: none;
+    text-decoration: none;
+    margin: .5em 2em;
+    padding: .5em;
+    background-color: var(--button-bg);
+
+    box-shadow: 
+    -4px 0px var(--pixel-shadow-inset) inset,
+    4px 0px  0px var(--pixel-shadow-bot),
+    0px 4px  0px var(--pixel-shadow-right),
+    -4px 0px  0px var(--pixel-shadow-left),
+    0px -4px  0px var(--pixel-shadow-top),
+    0px 4px 10px var(--blue-shadow),
+    0px 5px 10px var(--blue-shadow),
+    0px 0px 15px var(--blue-shadow);
+
+}
+.pixel-progress-bar{
+    margin: 4px 8px 4px 4px;
+    width: 1em;
+    height: 150px;
+    float: bottom;
+
+    box-shadow: 
+    -4px 0px var(--pixel-shadow-inset) inset,
+    4px 0px  0px var(--pixel-shadow-bot),
+    0px 4px  0px var(--pixel-shadow-right),
+    -4px 0px  0px var(--pixel-shadow-left),
+    0px -4px  0px var(--pixel-shadow-top),
+    0px 4px 10px var(--blue-shadow),
+    0px 5px 10px var(--blue-shadow),
+    0px 0px 15px var(--blue-shadow);
+}
+.chat-font{
+    font-family: "SFPixelate", sans-serif;
+    line-height: 1.1em;
+    color: var(--message-font);
+}
+.icon-box{
+    height: 3em;
+    width: 3em;
 }
 
+/*----- UI COLORING ----*/
+
+.red-bg{
+    background-color: var(--red-accent);
+}
+
+
+
+/*------- TITLE PAGE -------*/
+
+.login-page{
+    min-width: 375px;
+    min-height: 667px;
+    position: relative;
+    display: inline-block;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9;
+}
+#login-page{
+    text-align: center;
+    justify-content: center;
+    background: gold url(assets/images/stjohn_icon-sheet0.png) center no-repeat;
+    background-color: gold;
+	background-position: bottom left;
+    animation: 
+        login-fade-in 1s ease-in-out
+        ,bg-slide 75s linear infinite reverse;
+    overflow: hidden;
+    position: fixed;
+}
 #splash-container{
     margin: auto;
     position: absolute;
@@ -70,15 +233,12 @@ body{
     left: 50%;
     -ms-transform: translateY(-50%) translateX(-50%);
     transform: translateY(-50%) translateX(-50%);
-
 }
-
 #title-info{
     position: relative;
     animation-name: title-top-down;
     animation-duration: 3s;
 }
-
 #game-title{
     font-family: "CyrillicPixel", serif;
     font-size: 4.25em;
@@ -106,7 +266,6 @@ body{
     0px 10px 4px var(--blue-shadow),
     0px 0px 15px var(--blue-shadow);
 }
-
 #name-entry{
     position: relative;
     text-align: center;
@@ -118,53 +277,216 @@ body{
     animation-duration: 3s;
     width: 100%;
 }
-
 #name-entry>input{
     padding: .5em;
     margin: 1em;
-    color: black;
-    filter: hue-rotate(240deg) contrast(150%);
-
+    height: 20px;
+    font-family: "SFPixelate";
+    font-size: .9em;
+}
+#name-entry>input:placeholder-shown{
+    font-family: "PixelEmulator";
+    font-size: .9em;
 }
 
 #login{
     width: 40%;
 }
-
 #visit-container{
     position: fixed;
     bottom: 2em;
     text-align: center;
     width: 100%;
 }
-
 #visit{
     margin: auto;
     width: 200px;
-    filter: grayscale(100%);
     animation: none;
 }
 
-#max-message{
-    color: black;
+/*----- PLAY SCREEN-----*/
+
+#background{
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
 }
 
-.pixel-text-box:hover{
-    -webkit-filter: brightness(110%);
-    filter: brightness(110%);
+#ground-level{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: static;
+    width: 100%;
+    height: 100%;
+
 }
-.pixel-text-box:focus{
-    outline: 4px solid #fafafa44;
-    filter: inherit brightness(110%);
-    box-shadow: inherit,
-    0px 0px 20px white,
-    0px 0px 20px white,
-    0px 0px 20px white;
-    animation: pulse-focus .5s alternate infinite;
+#earth-map{
+    position: fixed;
+    object-fit: cover;
+    z-index: -1;
+    transition: all 1s ease-in-out;
+}
+
+/*---- DROP DOWN MENU ----*/
+
+#play-menu{
+    position: fixed;
+    width: 300px;
+    top: 50%;
+    left: 50%;
+    animation: menu-fade-in 0.2s;
+    z-index: 8;
+    background-color: #666e;
+}
+#game-progress-bar{
+    background: linear-gradient(0deg, rgb(10,10,10) 25%, var(--button-bg) 25%);
+    transition: background 2s ease-in-out;
+    margin: 10px auto;
+}
+#menu-mute{
+}
+#play-menu-toggle{
+    display: inline-block;
+    position: absolute;
+    right: 0%;
+}
+#play-menu-toggle>svg{
+    height: 100%;
+    width: 100%;
+}
+
+/*----- UI DOCK & CONTAINER ----*/
+
+#ui-dock{
+    position: absolute;
+    bottom: 0%;
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+}
+
+#ui-window-container{
+    position: absolute;
+    bottom: 3.5em;
+    height: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+}
+#ui-window-container>.pixel-window{
+}
+
+
+
+/*----- CHAT -----*/
+
+.message{
+    font-family: "SFPixelate", sans-serif;
+    text-align: left;
+    color: var(--message-font);
+}
+.message>.user-name{
+    text-shadow: 0px 0px 2px #0004;
+}
+.message.system-info{
+    color: #0006;
+}
+.message.system-err{
+    color: #8008 
+}
+#chat-window-toggle>svg{
+    height: 100%;
+    width: 100%;
+}
+
+#chat-window{
+    right: 0%;
+    height: 33vh;
+    z-index: 7;
+}
+#chat{
+    height: calc(100% - 3.1em);
+    width: 100%;
+    overflow: scroll;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+}
+#chat-client-area{
+    position: relative;
+    height: 100%;
+}
+#message-input{
+    display: grid;
+    position: absolute;
+    grid-template-columns: 75% 25%;
+    bottom: 0px;
+    width: 100%;
+}
+#chat-input{
+    width: 90%;
+    text-align: left;
+    font-family: "SFPixelate";
+    font-size: 1em;
+}
+#chat-send{
+    width: 90%;
+}
+#chat-exit{
+    font-size: .9em;
+    height: fit-content;
+    width: auto;
+    padding-right: 11px;
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    
+}
+
+/*---- STEPS (LADDER QUOTES) ----*/
+
+#steps-window{
+    max-height: 33vh;
+    z-index: 7;
+}
+#steps{
+    overflow: scroll;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+}
+#steps-exit{
+    font-size: .9em;
+    height: fit-content;
+    width: auto;
+    padding-right: 11px;
+    float: right;
+}
+
+
+
+/*---- DEBUG -----*/
+
+#debug{
+    position: fixed;
+    width: 33%;
+    bottom: 0px;
+    z-index: 999;
+    display: flex;
 }
 
 /* -----ANIMATION------*/
 
+    /*------ UTILITY _-----*/
+
+@keyframes pulse-focus{
+    0%   {background-color: #222; }
+    100%   {background-color: #444; }
+}
+
+    /*------ TITLE PAGE ----*/
 @keyframes title-top-down{
     0%   { top: -300px; opacity:   0%;}
     100% { top:    0px; opacity: 100%;}
@@ -185,10 +507,21 @@ body{
     66%  {background-size: 250%; background-position: 95% 95%;}
     100% {background-size: 250%; background-position: 95% 5%;}
 }
-@keyframes pulse-focus{
-    0%   {outline: 4px solid #fafafa66; filter: inherit brightness(125%);}
-    0%   {outline: 4px solid #fafafa22; filter: inherit brightness(105%);}
+@keyframes login-fade-in{
+    0%    {opacity:   0%;}
+    100%  {opacity: 100%;}
 }
+
+    /*----- DROP DOWN MENU -----*/
+
+@keyframes menu-fade-in {
+    0%   { top:     50%; opacity:   0%;}
+    100% { top:    50%; opacity: 100%;}
+}
+
+
+
+/*----- MEDIA ADJUSTMENTS -----*/
 
 @media (width < 600px){
 
@@ -200,16 +533,53 @@ body{
         margin: 0vh 0px 0px 0px;
     }
 
-    #game{
+    #login-page{
         animation: bg-slide-high-dpr 75s linear infinite reverse ;
     }
+    
+
+    #play-menu-toggle{
+        top: 0%;
+        right: 0%;
+    }
+    #chat-window{
+        box-sizing: border-box;
+        width: calc( 100% - 14px );
+        left: 0%;
+    }
+    #chat-window-toggle{
+        right: 0%;
+    }
+
+    #debug{
+        position: relative;
+    }
+    
+
 
 }
 
+/*----- COLOR VARIABLES ------*/
+
+svg{
+    fill:var(--main-font);
+}
 
 :root{
     --gold-text: rgb(241, 220, 151);
     --dark-blue: #224;
-    --blue-shadow: #13292a8f
+    --red-accent: #934;
+    --main-font: #ccc;
+    --message-font: #333;
+    --blue-shadow: #13292a8f;
+    --button-bg: #333;
+    --pixel-shadow-inset: #fff1;
+    --pixel-shadow-left: #222;
+    --pixel-shadow-right: #222;
+    --pixel-shadow-bot: #111;
+    --pixel-shadow-top: #222;
+    --window-bg: #aaa;
+    --menu-dark-col333dor: #225;
 }
+
 
