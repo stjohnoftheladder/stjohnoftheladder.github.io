@@ -222,8 +222,10 @@ body{
     animation: 
         login-fade-in 1s ease-in-out
         ,bg-slide 75s linear infinite reverse;
-    overflow: hidden;
-    position: fixed;
+    position: relative; /* Change this from 'fixed' to 'relative' */
+    overflow: visible;  /* Allow the content to overflow and scroll */
+    height: auto; /* Adjust based on content */
+    min-height: 100vh; /* Ensure it's at least as tall as the viewport */
 }
 #splash-container{
     margin: auto;
