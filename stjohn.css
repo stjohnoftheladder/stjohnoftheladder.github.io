@@ -295,10 +295,10 @@ body{
     width: 40%;
 }
 #visit-container{
-    position: fixed;
-    bottom: 2em;
+    position: relative;
     text-align: center;
     width: 100%;
+	margin-top: 2em; 
 }
 #visit{
     margin: auto;
