@@ -11,6 +11,9 @@
     src: url(assets/fonts/SFPixelate.ttf);
 }
 
+html{
+    overflow: hidden;
+}
 body{
     margin: 0;
     padding: 0;
@@ -521,6 +524,21 @@ body{
 /*----- MEDIA ADJUSTMENTS -----*/
 
 @media (width < 600px){
+	body {
+        height: auto; /* Allow the body to resize based on content */
+        overflow-y: auto; /* Enable vertical scrolling */
+    }
+
+    #login-page {
+		animation: bg-slide-high-dpr 75s linear infinite reverse ;
+        height: auto; /* Let the login page adjust based on available space */
+        min-height: 100vh; /* Ensure it's at least the full viewport height */
+        overflow-y: auto; /* Allow scrolling */
+    }
+
+    #name-entry {
+        margin-bottom: 100px; /* Add extra margin for input visibility */
+    }
 
     .game-column{
         width:100vw;
