@@ -11,9 +11,6 @@
     src: url(assets/fonts/SFPixelate.ttf);
 }
 
-html{
-    overflow: hidden;
-}
 body{
     margin: 0;
     padding: 0;
@@ -531,27 +528,6 @@ body{
 
     #game-title{
         margin: 0vh 0px 0px 0px;
-    }
-
-    #login-page{
-        animation: bg-slide-high-dpr 75s linear infinite reverse ;
-		height: calc(100vh - 50px); /* Subtract 50px to account for potential keyboard height */
-        overflow-y: auto; /* Enable vertical scrolling */
-    }
-    
-	#name-entry {
-        margin-bottom: 100px; /* Ensure there's extra space at the bottom so the input is not covered */
-    }
-	
-	    /* Adjust body to allow scrolling when needed */
-    body {
-        height: auto;
-        overflow-y: auto;
-    }
-
-    /* Optionally, prevent the page from zooming in when focusing on the input field */
-    input {
-        font-size: 16px; /* Prevent mobile browsers from zooming in when tapping input fields */
     }
 
     #play-menu-toggle{
