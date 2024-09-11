@@ -1,0 +1,248 @@
+Start
+< Start
+< Start
+< Start
+< Start
+< Start
+< Start
+<
+| 1. Renunciation (Renouncing the World)
+< "Life is short, enjoy it while you can."
+< "Think of everything you'll miss out on."
+< "You're wasting your time."
+< "Why leave it behind?"
+< "You don’t need to change anything."
+< "You can repent later when you're older. There's no rush."
+<
+| 2. Detachment
+< "Are you going to let them talk to you like that?"
+< "Are you going to let them get away with that?"
+< "You’ve done so much good. When will you get the reward you deserve?"
+< "You've held it for this long; why let it go now?"
+< "If you lose this, you’ll have nothing left to hold on to."
+< "You’re stronger when you’re surrounded by things you love."
+<
+| 3. Exile/Pilgrimage
+< "Who do you think you are?"
+< "Stay where you're comfortable; there's no point in stepping out."
+< "Why separate yourself from the world? You don't need to change."
+< "You’re just running away from your problems, not solving them."
+< "Being comfortable isn’t bad. You can still grow where you are."
+< "Do you think you're better than everyone else?"
+<
+| 4. Obedience
+< "You know better than them; do your own thing."
+< "Once things work out, they’ll be sorry they ever doubted you."
+< "Why obey anyone when you can be free to do what you want?"
+< "Why should you follow the rules when you know better?"
+< "You’re only obeying because you're too weak to lead yourself."
+< "Real strength is doing what you think is right, not what they tell you."
+<
+| 5. Repentance
+< "Why apologize when nobody else is?"
+< "Look at how bad they are; at least you're not that bad."
+< "No one takes responsibility."
+< "You’ve already asked for forgiveness."
+< "You don’t need to feel bad for every little mistake."
+< "If God loves you, He wouldn’t care about these small things."
+<
+| 6. Remembrance of Death
+< "Science is progressing so fast; you might live forever!"
+< "Don’t worry, you won’t have to answer for anything."
+< "Just imagine living forever without consequences."
+< "Why think about death? Focus on living."
+< "What’s the point of thinking about the end? You’ve got years left."
+< "Dwelling on death will make you anxious. Enjoy life instead."
+<
+| 7. Joyful Mourning
+< "Why mourn? There's no use in feeling bad."
+< "It's not your job to feel guilty for every little thing."
+< "You should feel fine, there’s no point in mourning over sin."
+< "Why mourn when you can be happy? You’ve already been forgiven."
+< "You don’t need to punish yourself. God is merciful, isn’t He?"
+< "Tears won’t change anything. Just accept who you are and move on."
+<
+| 8. Dispassion
+< "You’re the only competent person here; everyone else is useless."
+< "Don’t bother helping these people; they aren’t worth your time."
+< "This isn't fair! You shouldn’t have to deal with this."
+< "You’re human; it’s only natural to feel deeply about things."
+< "If you suppress your feelings, you’ll lose touch with your true self."
+< "How can you love if you stop feeling anything?"
+<
+| 9. Remembering Wrongs
+< "Remember what they did to you years ago?"
+< "Forget about your wrongs. What about what they did to you?"
+< "Forgiving them will only make you look weak."
+< "They hurt you; how can you just let that go?"
+< "Forgiving them means they get away with it."
+< "If you forget what happened, they win."
+<
+| 10. Slander
+< "Is there even one good thing about them?"
+< "They’re garbage. Why not tell others the truth about it?"
+< "They just can’t do anything right, can they?"
+< "If you don’t say something, they’ll just keep getting away with it."
+< "You’re just telling the truth. It’s not really slander."
+< "People need to know who they’re dealing with."
+<
+| 11. Silence
+< "You need to speak up or people will forget you."
+< "Don’t let all the knowledge you’ve gained go to waste by staying silent."
+< "Silence is agonizing. Better to say something."
+< "Your voice needs to be heard. Staying silent makes you invisible."
+< "Why hold back when you have so much to say?"
+< "If you stay quiet, they’ll think you don’t know anything."
+<
+| 12. Lying
+< "It’s just a white lie; it won’t hurt anyone."
+< "This is what they want to hear, after all."
+< "You just don't want to hurt their feelings."
+< "Telling the truth will only cause pain. A little lie is harmless."
+< "They won’t understand the truth, so why even try?"
+< "You’re just protecting them by hiding the truth."
+<
+| 13. Despondency
+< "Aren’t you tired of all this?"
+< "You might as well give up."
+< "You’re going to fail."
+< "Why try anymore? Nothing is going to change."
+< "Whatever you do is still not enough."
+< "What’s the point?"
+<
+| 14. Gluttony
+< "Eat as much as you can before it's all gone."
+< "Food is your real comfort. No one else loves you like food does."
+< "Why settle for less? You deserve to eat well."
+< "You deserve to indulge. You’ve earned it after all this sacrifice."
+< "Why deny yourself?"
+< "Just this once won’t hurt. You can go back to being disciplined tomorrow."
+<
+| 15. Lust and Chastity
+< "It’s not your fault you have these desires."
+< "Even the holiest saints struggled with this, so why fight it?"
+< "Just give in already. There’s no point in resisting forever."
+< "You’re just following your nature. Why resist what you’re made for?"
+< "These desires are part of being human. Why fight it?"
+< "You won't win this battle, so why even try?"
+<
+| 16. Avarice
+< "Money makes the world go round."
+< "Once you have enough money, your life will be complete."
+< "If you don’t have money, what's the point."
+< "You’re only looking out for your future. Being careful isn’t greed."
+< "Just get a little more money and you’ll be fine."
+< "It’s not wrong to want to be comfortable."
+<
+| 17. Non-Possessiveness
+< "This is yours; don’t ever let it go."
+< "If you lose it, your life is ruined."
+< "You can’t live without it."
+< "What if you need this later? You can’t just let it go."
+< "It’s not about attachment; it’s about responsibility."
+< "You’ve worked hard for this. Why should you give it up?"
+<
+| 18. Insensitivity
+< "You need to fix everything that’s wrong right now."
+< "Who cares about anything anymore? Let the world fall apart."
+< "God allowed all this evil, so why bother trying to change things?"
+< "Why care so much? The world is full of suffering."
+< "Don’t waste your time on things that won’t change."
+< "Why even try? It’s just how things are."
+<
+| 19. Community Prayer
+< "Personal prayer is enough."
+< "You can pray by yourself; there’s no need to pray with  others."
+< "Everyone else just distracts you from real prayer."
+< "You don’t need others to connect with God. Just pray by yourself."
+< "Praying with others is distracting. You’ll be more focused alone."
+< "Why bother when your prayers are more sincere than theirs?"
+<
+| 20. Vigilance
+< "Why carry extra burdens? Relax. Life is hard enough as it is."
+< "Don’t be so serious all the time. You deserve to take it easy."
+< "There’s no point in being on guard all the time."
+< "You can relax. Let your guard down."
+< "You’ve been careful for so long. It’s time to take a break."
+< "Don’t be paranoid. Everything is under control."
+<
+| 21. Cowardice
+< "It’s not worth the risk. Stay out of danger."
+< "Courage only leads to trouble."
+< "No one appreciates courage in this world."
+< "There’s no need to be a hero. Let others take the risk."
+< "Why fight? It’s easier to stay quiet and avoid trouble."
+< "Being brave only brings more problems. Play it safe."
+<
+| 22. Vainglory
+< "You’re smarter than everyone else, they're too dumb to realize it."
+< "People need to know how holy you are."
+< "Imagine getting the praise and attention you deserve."
+< "It’s okay to be recognized. You’ve worked hard for it."
+< "People need examples to follow. Show them what you’ve accomplished."
+< "Your humility is already impressive enough."
+<
+| 23. Pride
+< "You’re a brilliant strategist. You can outsmart everyone."
+< "Humility is just self-loathing in disguise."
+< "Why strive for humility when you’re already so accomplished?"
+< "Look at how far you’ve come. You’ve earned a little recognition."
+< "You’re better than most people. Don’t pretend you’re not."
+< "Why hide your gifts? People need to see what you’re capable of."
+<
+| 24. Meekness and Guile
+< "Why stay quiet and humble? People will just walk all over you."
+< "If you don’t stand up for yourself, you’ll be seen as weak."
+< "Meekness won’t get you respect. You need to assert your strength."
+< "You’re smarter than everyone here. Use that to get ahead."
+< "A little manipulation isn’t wrong if it’s for a good cause."
+< "Why play by the rules when you're so clever?"
+<
+| 25. Humility
+< "Humility is for people who have no choice but to be humble."
+< "You need to look out for yourself because nobody else will."
+< "You deserve some credit."
+< "Why be humble when you’ve achieved so much? "
+< "Humility is just a way for others to take advantage of you."
+< "You’re not like everyone else. Why pretend you are?"
+<
+| 26. Discernment
+< "You've worked on your discernment. Little can deceive you."
+< "Soon, you’ll be able to see the spiritual world with your own eyes."
+< "You’ve dodged every trap so far. You’re practically infallible."
+< "You can trust yourself. You don’t need advice from others."
+< "You’re wise enough to make your own decisions without help."
+< "Your judgment is right. There’s no need to doubt yourself."
+<
+| 27. Stillness
+< "You’ve already achieved the inner peace that everyone seeks."
+< "You’ve conquered the passions; there’s no need for more effort."
+< "You’re impressive. There’s not much left to challenge you."
+< "Why keep seeking when you’ve already found peace?"
+< "You’ve reached the end. There’s nothing more to discover."
+< "You don’t need to try so hard anymore. Enjoy the peace you have."
+<
+| 28. Prayer
+< "You’ve prayed so much. You don’t even need to try anymore."
+< "Temptations don't work on you; you’ve won!"
+< "There’s no need for repentance when you’ve reached this level."
+< "Your prayers are already perfect. You don’t need to keep asking."
+< "Why repeat yourself? God heard you the first time."
+< "You’ve prayed enough. Take a break and enjoy life for a while."
+<
+| 29. Self-Control
+< "It’s unfair that you have to control yourself like this."
+< "Why should you have to fight against your nature?"
+< "You’ve controlled your desires enough."
+< "Why deny yourself when you’ve already shown you can control yourself?"
+< "You’ve been disciplined for so long. You deserve a little freedom now."
+< "What’s the harm in letting go for once? You’ll get back on track."
+<
+| 30. Love
+< "You’ve escaped from our clutches!"
+< "You’ve reached the top, and we can’t touch you anymore."
+< "You’re completely free now."
+< "You’ve done enough. You don’t need to keep giving."
+< "Don’t let others take advantage of your love. Protect yourself."
+< "Why love when it’s not returned? You deserve more than that."
+<
