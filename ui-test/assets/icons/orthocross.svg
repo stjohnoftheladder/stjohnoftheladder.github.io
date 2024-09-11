@@ -1,0 +1,48 @@
+<!-- ORTHO CROSS -->
+<svg width="320" height="320" xmlns="http://www.w3.org/2000/svg">
+
+  <style>
+    .cross{
+      stroke-width: 30px;
+      z-level: 1;
+    }
+    .cross-border{
+      stroke-width: 20px;
+      z-level: 0;
+    }
+  </style>
+
+  <line class="cross" x1="160" y1="35" x2="160" y2="285" 
+      stroke="black" 
+      stroke-width="url(#cross-str-wid)"
+  />
+  <line class="cross" x1="115" y1="80" x2="205" y2="80" 
+      stroke="black" 
+  
+  />
+  <line class="cross" x1="75" y1="120" x2="245" y2="120" 
+      stroke="black" 
+  
+  />
+  <line class="cross" x1="116" y1="198" x2="204" y2="242" 
+      stroke="black" 
+  
+  />
+
+    <line class="cross-border" x1="160" y1="40" x2="160" y2="280" 
+      stroke="white" 
+      stroke-width="url(#cross-str-wid)"
+  />
+  <line class="cross-border" x1="120" y1="80" x2="200" y2="80" 
+      stroke="white" 
+  
+  />
+  <line class="cross-border" x1="80" y1="120" x2="240" y2="120" 
+      stroke="white" 
+  
+  />
+  <line class="cross-border" x1="120" y1="200" x2="200" y2="240" 
+      stroke="white" 
+  
+  />
+</svg>

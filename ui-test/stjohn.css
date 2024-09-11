@@ -12,12 +12,16 @@
 }
 
 html{
-    overflow-y: auto;
+    overflow: hidden;
 }
 body{
     margin: 0;
     padding: 0;
     max-height: 100vh;
+}
+a{
+  text-decoration: inherit;
+  color: inherit;  
 }
 
 /*----- UTILITY AND UNIVERSAL ----*/
@@ -35,15 +39,18 @@ body{
     min-height: max-content;
 }
 .game-column{
-    min-width: 375px;
-    min-height: 667px;
     position: relative;
     display: inline-block;
-    margin: 0px 33%;
-    width: 33%;
     height: 100vh;
+    width: 100%;
 }
-
+#UI{
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 500ms;
+}
 
 
 
@@ -80,6 +87,7 @@ body{
 }
 .pixel-text-box:focus{
     outline: -4px solid #aaaaff;
+    text-decoration: none;
     filter: brightness(110%);
     z-index: 6;
     box-shadow: inherit,
@@ -145,7 +153,6 @@ body{
     font-size: 1.2em;
 }
 .pixel-progress{
-    display: inline-block;
     float: right;
     font-family: "PixelEmulator";
     font-size: .9em;
@@ -216,16 +223,13 @@ body{
 #login-page{
     text-align: center;
     justify-content: center;
-    background: gold url(assets/images/stjohn_icon-sheet0.webp) center no-repeat;
-    background-color: gold;
-	background-position: bottom left;
+    background: gold url(assets/images/stjohn_icon-sheet0.png) center no-repeat;
+    background-position: bottom left;
     animation: 
         login-fade-in 1s ease-in-out
         ,bg-slide 75s linear infinite reverse;
-    position: relative; /* Change this from 'fixed' to 'relative' */
-    overflow: visible;  /* Allow the content to overflow and scroll */
-    height: auto; /* Adjust based on content */
-    min-height: 100vh; /* Ensure it's at least as tall as the viewport */
+    overflow: hidden;
+    position: fixed;
 }
 #splash-container{
     margin: auto;
@@ -279,26 +283,42 @@ body{
     animation-duration: 3s;
     width: 100%;
 }
+#max-message{
+    font-family: "PixelEmulator";
+    color: #CC2;
+    text-shadow: -1px 0px 0px #000, 
+                    1px 0px 0px #000,
+                    0px -1px 0px #000,
+                    0px 1px 0px #000;
+}
 #name-entry>input{
-    padding: .5em;
+    padding: 1.2em;
+    color: var(--main-font);
     margin: 1em;
     height: 20px;
     font-family: "SFPixelate";
     font-size: .9em;
+    transition: transform 0.05s color 0.05s;
 }
 #name-entry>input:placeholder-shown{
     font-family: "PixelEmulator";
     font-size: .9em;
 }
+#name-entry>#username.max:focus{
+    color: var(--gold-text);
+    transition: color 0.05s;
+    animation: invalid-input 0.05s infinite alternate;
+}
+
 
 #login{
     width: 40%;
 }
 #visit-container{
-    position: relative;
+    position: fixed;
+    bottom: 2em;
     text-align: center;
     width: 100%;
-	margin-top: 2em; 
 }
 #visit{
     margin: auto;
@@ -307,6 +327,8 @@ body{
 }
 
 /*----- PLAY SCREEN-----*/
+
+
 
 #background{
     position: fixed;
@@ -347,8 +369,8 @@ body{
     transition: background 2s ease-in-out;
     margin: 10px auto;
 }
-#menu-mute{
-}
+/*#menu-mute{ /*TODO*/
+/*}*/
 #play-menu-toggle{
     display: inline-block;
     position: absolute;
@@ -379,23 +401,21 @@ body{
     flex-direction: column-reverse;
     justify-content: flex-start;
 }
-#ui-window-container>.pixel-window{
+#ui-window-container>.pixel-window:focus{
+    background-color: var(--red-accent);
 }
 
 
 
 /*----- CHAT -----*/
 
-.message{
+.message{ /* Covers general system messages */
     font-family: "SFPixelate", sans-serif;
     text-align: left;
-    color: var(--message-font);
-}
-.message>.user-name{
-    text-shadow: 0px 0px 2px #0004;
-}
-.message.system-info{
     color: #0006;
+}
+.message.player-chat{
+    color: var(--message-font);
 }
 .message.system-err{
     color: #8008 
@@ -407,7 +427,7 @@ body{
 
 #chat-window{
     right: 0%;
-    height: 33vh;
+    height: 29vh;
     z-index: 7;
 }
 #chat{
@@ -483,6 +503,11 @@ body{
 
     /*------ UTILITY _-----*/
 
+@keyframes invalid-input{
+    0% {transform: translateX(-4px);}
+    100% {transform: translateX(4px);}
+}
+
 @keyframes pulse-focus{
     0%   {background-color: #222; }
     100%   {background-color: #444; }
@@ -526,29 +551,16 @@ body{
 /*----- MEDIA ADJUSTMENTS -----*/
 
 @media (width < 600px){
-	body {
-        height: auto; /* Allow the body to resize based on content */
-        overflow-y: auto; /* Enable vertical scrolling */
-    }
 
-    #login-page {
-		animation: bg-slide-high-dpr 75s linear infinite reverse ;
-        height: auto; /* Let the login page adjust based on available space */
-        min-height: 100vh; /* Ensure it's at least the full viewport height */
-        overflow-y: auto; /* Allow scrolling */
-    }
-
-    #name-entry {
-        margin-bottom: 100px; /* Add extra margin for input visibility */
-    }
-
-    .game-column{
-        width:100vw;
-    }
 
     #game-title{
         margin: 0vh 0px 0px 0px;
     }
+
+    #login-page{
+        animation: bg-slide-high-dpr 75s linear infinite reverse ;
+    }
+    
 
     #play-menu-toggle{
         top: 0%;
@@ -582,7 +594,7 @@ svg{
     --dark-blue: #224;
     --red-accent: #934;
     --main-font: #ccc;
-    --message-font: #333;
+    --message-font: #000;
     --blue-shadow: #13292a8f;
     --button-bg: #333;
     --pixel-shadow-inset: #fff1;
@@ -590,7 +602,7 @@ svg{
     --pixel-shadow-right: #222;
     --pixel-shadow-bot: #111;
     --pixel-shadow-top: #222;
-    --window-bg: #aaa;
+    --window-bg: #aaac;
     --menu-dark-col333dor: #225;
 }
 
