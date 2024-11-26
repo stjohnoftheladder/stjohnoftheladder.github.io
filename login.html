@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="stjohn.css?v=9.11.2024">
     <meta name="description" content="Login page for St. John of the Ladder: An Intro to Orthodoxy Game.">
+    <link rel="stylesheet" href="stjohn.css?v=9.11.2024">
     <title>St. John of the Ladder: An Intro to Orthodoxy Game</title>
 </head>
 <body>
@@ -28,8 +28,10 @@
                         onkeydown="checkEnter(event)" 
                         aria-required="true" 
                     />
-                    <p id="username-instructions" class="aria-notice">Name input is limited to 10 characters. Press Enter to login or click "Climb the Ladder."</p>
-                    <div id="max-message" role="alert" aria-live="polite"></div>
+                    <p id="username-instructions" class="visually-hidden">
+                        Name input is limited to 10 characters. Press Enter to login or click "Climb the Ladder."
+                    </p>
+                    <div id="max-message" role="alert" aria-live="polite" class="aria-notice"></div>
                     <button 
                         id="login" 
                         class="pixel-text-box" 

@@ -1,3 +1,24 @@
+/* Hide content visually but keep it accessible to screen readers */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Style ARIA notices for accessibility */
+.aria-notice {
+    font-size: 0.875rem;
+    color: #6c757d; /* Muted color for visual users, optional */
+    margin-top: 5px;
+}
+
+
 @font-face {
     font-family: "CyrillicPixel";
     src: url(assets/fonts/CyrillicPixel.ttf);
