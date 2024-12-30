@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1726181054,
+	"version": 1735569596,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -21,6 +21,9 @@
 		"images/blue3-sheet0.png",
 		"images/blue4-sheet0.png",
 		"images/crossnb-sheet0.png",
+		"images/leftthumb-sheet0.png",
+		"images/right_tap-sheet0.png",
+		"images/right_tap-sheet1.png",
 		"images/prayer_rope_small-sheet0.png",
 		"images/os_fire-sheet0.png",
 		"images/os_church-sheet0.png",

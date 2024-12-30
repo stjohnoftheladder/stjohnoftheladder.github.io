@@ -12,7 +12,7 @@ Start
 < "You're wasting your time."
 < "Why leave it behind?"
 < "You don’t need to change anything."
-< "You can repent later on. There's no rush."
+< "You can repent later when you're older. There's no rush."
 <
 | 2. Detachment
 < "Are you going to let them talk to you like that?"
@@ -24,17 +24,17 @@ Start
 <
 | 3. Exile/Pilgrimage
 < "Who do you think you are?"
-< "Stay where you're comfortable."
-< "You don't need to change."
-< "Being comfortable isn’t bad."
-< "You can still grow where you are."
+< "Stay where you're comfortable; there's no point in stepping out."
+< "Why separate yourself from the world? You don't need to change."
+< "You’re just running away from your problems, not solving them."
+< "Being comfortable isn’t bad. You can still grow where you are."
 < "Do you think you're better than everyone else?"
 <
 | 4. Obedience
 < "You know better than them; do your own thing."
 < "Once things work out, they’ll be sorry they ever doubted you."
 < "Why obey anyone when you're free to do what you want?"
-< "Why follow the rules when you know better?"
+< "Why should you follow the rules when you know better?"
 < "You’re only obeying because you're too weak to lead yourself."
 < "Real strength is doing what you think is right, not what they tell you."
 <
@@ -47,7 +47,7 @@ Start
 < "If God loves you, He wouldn’t care about these small things."
 <
 | 6. Remembrance of Death
-< "You have plenty of years left."
+< "You’ve got plenty of years left."
 < "Don’t worry, you won’t have to answer for anything."
 < "Just imagine living forever without consequences."
 < "Why think about death? Focus on living."
@@ -68,7 +68,7 @@ Start
 < "This isn't fair! You shouldn’t have to deal with this."
 < "You’re human; it’s only natural to feel deeply about things."
 < "If you suppress your feelings, you’ll lose touch with your true self."
-< "How can you love if you try to stop your feeling?"
+< "How can you love if you stop feeling anything?"
 <
 | 9. Remembering Wrongs
 < "Remember what they did to you?"
@@ -96,7 +96,7 @@ Start
 <
 | 12. Lying
 < "It’s just a little lie; it won’t hurt anyone."
-< "This is what they want to hear after all."
+< "This is what they want to hear, after all."
 < "You just don't want to hurt their feelings."
 < "Telling the truth will only cause pain. A little lie is harmless."
 < "They won’t understand the truth, so why try?"
@@ -169,7 +169,7 @@ Start
 | 21. Cowardice
 < "It’s not worth the risk. Stay out of danger."
 < "Courage only leads to trouble."
-< "Be smart, keep your head down."
+< "No one appreciates courage in this world."
 < "There’s no need to be a hero. Let others take the risk."
 < "Why fight? It’s easier to stay quiet and avoid trouble."
 < "Being brave only brings more problems. Play it safe."
@@ -226,7 +226,7 @@ Start
 < "You’ve prayed so much. You don’t even need to try anymore."
 < "Temptations don't work on you; you’ve won!"
 < "There’s no need for repentance when you’ve reached this level."
-< "Your prayers are perfect. You don’t need to keep asking."
+< "Your prayers are already perfect. You don’t need to keep asking."
 < "Why repeat yourself? God heard you the first time."
 < "You’ve prayed enough. Take a break and enjoy life for a while."
 <
@@ -234,7 +234,7 @@ Start
 < "It’s unfair that you have to control yourself like this."
 < "Why should you have to fight against your nature?"
 < "You’ve controlled your desires enough."
-< "Why deny yourself? You’ve already shown you can control yourself."
+< "Why deny yourself when you’ve already shown you can control yourself?"
 < "You’ve been disciplined for so long. You deserve a little freedom now."
 < "What’s the harm in letting go for once? You’ll get back on track."
 <
