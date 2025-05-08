@@ -23,7 +23,14 @@ html, body {
 	color: #fff;
     -ms-touch-action: none;
     touch-action: none;
+    box-sizing: border-box; /* Apply border-box globally */
 }
+
+/* Apply border-box to all elements */
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
 
 a{
   text-decoration: inherit;
@@ -52,7 +59,7 @@ canvas#c2canvas {
 
 /* --- UI Overlay Layer --- */
 #UI {
-    position: absolute; /* Position relative to body */
+    position: absolute; /* Position relative to body/html */
     left: 0;
     top: 0;
     width: 100%;
@@ -60,24 +67,28 @@ canvas#c2canvas {
     z-index: 10; /* Above canvas */
     pointer-events: none; /* Ignore clicks on the container itself */
     overflow: hidden;
-    display: flex; /* Use flexbox to potentially center content */
-    justify-content: center; /* Center .game-column horizontally */
-    align-items: center; /* Center .game-column vertically */
+    /* display: flex; */ /* REMOVED Flexbox */
+    /* justify-content: center; */
+    /* align-items: center; */
 }
 
 /* --- Game Column (Container for UI elements) --- */
 .game-column {
-    position: relative; /* For positioning children absolutely */
-    width: 100%; /* Take full width of parent */
-    height: 100%; /* Take full height of parent */
-    max-width: 480px; /* Example: Limit max width like canvas? Adjust as needed */
+    position: absolute; /* Position absolutely within #UI */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center using transform */
+    width: 100%; /* Take full width available within constraints */
+    height: 100%; /* Take full height available */
+    max-width: 480px; /* Constrain width like canvas (adjust if needed) */
     /* pointer-events: none; */ /* Let children handle events */
-    /* If .game-column itself should not block events, uncomment above */
+    /* display: flex; */ /* REMOVED Flex - children use absolute/relative */
+    /* flex-direction: column; */
+    /* align-items: center; */
 }
 
 
 /* --- Pointer Events Handling --- */
-/* Make ALL children of #UI ignore pointer events initially */
 #UI * {
     pointer-events: none;
 }
@@ -85,16 +96,10 @@ canvas#c2canvas {
 #UI button,
 #UI a,
 #UI input,
-#UI label {
-     pointer-events: auto;
-}
-/* Allow interaction with the content *inside* specific windows/containers */
+#UI label,
 #play-menu,
 #steps-window,
-#chat-window {
-    pointer-events: auto;
-}
-/* Ensure specific icon buttons are clickable */
+#chat-window,
 #play-menu-toggle,
 #steps-window-toggle,
 #chat-window-toggle,
@@ -105,13 +110,12 @@ canvas#c2canvas {
 
 /*----- UTILITY AND UNIVERSAL ----*/
 .center-vh{
-    /* This might not be needed if #UI uses flexbox for centering */
-    position: absolute; /* Changed from fixed */
+    position: absolute; /* Use absolute relative to .game-column */
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
-    width: 90%; /* Give it a width */
-    max-width: 300px; /* And a max-width */
+    width: 90%;
+    max-width: 300px;
 }
 .client-area{
     min-height: max-content;
@@ -137,48 +141,46 @@ canvas#c2canvas {
 .red-bg{ background-color: var(--red-accent); }
 
 /*----- PLAY SCREEN-----*/
-#play-menu{ width: 90%; max-width: 300px; /* Adjusted width */ animation: menu-fade-in 0.2s; z-index: 12; background-color: #666e; }
+#play-menu{ width: 90%; max-width: 300px; animation: menu-fade-in 0.2s; z-index: 12; background-color: #666e; }
 #game-progress-bar{ background: linear-gradient(0deg, rgb(10,10,10) 25%, var(--button-bg) 25%); transition: background 2s ease-in-out; margin: 10px auto; }
-#play-menu-toggle{ display: inline-block; position: absolute; top: 0.5em; right: 0.5em; z-index: 11; }
+#play-menu-toggle{ position: absolute; top: 0.5em; right: 0.5em; z-index: 11; } /* Position relative to .game-column */
 #play-menu-toggle>svg{ height: 100%; width: 100%; }
 
 /*----- UI DOCK & CONTAINER ----*/
-#ui-dock{ position: absolute; bottom: 0%; width: 100%; display: flex; flex-direction: row-reverse; justify-content: flex-start; z-index: 11; padding: 0 0.5em; /* Add padding for spacing */ box-sizing: border-box; }
-#ui-window-container{ position: absolute; bottom: 3.5em; width: 100%; display: flex; flex-direction: column-reverse; align-items: flex-end; padding: 0 0.5em; box-sizing: border-box; }
+#ui-dock{ position: absolute; bottom: 0; left: 0; /* Align to bottom-left of .game-column */ width: 100%; display: flex; flex-direction: row-reverse; justify-content: flex-start; z-index: 11; padding: 0 0.5em; }
+#ui-window-container{ position: absolute; bottom: 3.5em; /* Above dock */ left: 0; /* Align to left of .game-column */ width: 100%; display: flex; flex-direction: column-reverse; align-items: flex-end; /* Align windows right */ padding: 0 0.5em; }
 
 /*----- CHAT -----*/
 .message{ font-family: "SFPixelate", sans-serif; text-align: left; color: #0006; }
 .message.player-chat{ color: var(--message-font); }
 .message.system-err{ color: #8008 }
 #chat-window-toggle>svg{ height: 100%; width: 100%; }
-#chat-window{ height: 29vh; width: 95%; max-width: 400px; margin-bottom: 0.5em; }
-#chat{ height: calc(100% - 3.1em); width: 100%; overflow-y: scroll; overscroll-behavior: contain; scrollbar-width: none; -ms-overflow-style: none; }
+#chat-window{ height: 29vh; width: 95%; max-width: 400px; margin-bottom: 0.5em; position: relative; /* Needed for absolute positioning of exit button */ }
+#chat{ height: calc(100% - 1.5em); /* Adjust based on exit button height/padding */ width: 100%; overflow-y: scroll; overscroll-behavior: contain; scrollbar-width: none; -ms-overflow-style: none; }
 #chat::-webkit-scrollbar { display: none; }
 #chat-client-area{ position: relative; height: 100%; }
-#chat-exit{ font-size: .9em; height: fit-content; width: auto; padding-right: 11px; position: absolute; top: -3px; right: -3px; }
+#chat-exit{ font-size: .9em; height: fit-content; width: auto; padding: 2px 4px; /* Adjust padding */ position: absolute; top: -10px; /* Adjust relative to border */ right: -10px; /* Adjust relative to border */ z-index: 13; /* Ensure it's above window border */ }
 
 /*---- STEPS (LADDER QUOTES) ----*/
-#steps-window{ max-height: 33vh; width: 95%; max-width: 400px; margin-bottom: 0.5em; }
+#steps-window{ max-height: 33vh; width: 95%; max-width: 400px; margin-bottom: 0.5em; position: relative; }
 #steps{ overflow-y: scroll; overscroll-behavior: contain; scrollbar-width: none; -ms-overflow-style: none; height: 100%; }
 #steps::-webkit-scrollbar { display: none; }
 
 /* -----ANIMATION------*/
 @keyframes invalid-input{ 0% {transform: translateX(-4px);} 100% {transform: translateX(4px);} }
 @keyframes pulse-focus{ 0% {background-color: #222;} 100% {background-color: #444;} }
-@keyframes menu-fade-in { 0% { top: 50%; opacity: 0%;} 100% { top: 50%; opacity: 100%;} }
+@keyframes menu-fade-in { 0% { opacity: 0%; transform: translate(-50%, -55%);} 100% { opacity: 100%; transform: translate(-50%, -50%);} } /* Added transform to fade */
 
 /*----- MEDIA ADJUSTMENTS -----*/
 @media (width < 600px){
     #play-menu-toggle{ top: 0.5em; right: 0.5em; }
     #chat-window, #steps-window {
-        box-sizing: border-box;
-        width: calc( 100% - 1em ); /* Use container padding */
-        /* left: 0.5em; */ /* Not needed if using align-items */
-        align-self: center; /* Center horizontally */
-        margin-right: 0; /* Remove specific margin */
+        width: calc( 100% - 1em );
+        align-self: center;
+        margin-right: 0;
     }
     #ui-window-container {
-         align-items: center; /* Center windows horizontally */
+         align-items: center; /* Center windows horizontally on small screens */
     }
     #ui-dock {
         justify-content: center; /* Center dock items */
