@@ -102,7 +102,7 @@ function formatMessageLogsToHTML(logs){
 // HACKY ideally a function is implemented 
 // in Construct to return this data
 function getMessageLogsFromRuntime(){
-    return cr_getC2Runtime().getObjectByUID(12) //MessageLogs array UID is 29
+    return cr_getC2Runtime().getObjectByUID(29) //MessageLogs array UID is 29
 }
 
 //  ----30 TEXT HANDLING ---------
