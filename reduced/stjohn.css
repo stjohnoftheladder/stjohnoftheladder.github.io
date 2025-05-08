@@ -67,9 +67,6 @@ canvas#c2canvas {
     z-index: 10; /* Above canvas */
     pointer-events: none; /* Ignore clicks on the container itself */
     overflow: hidden;
-    /* display: flex; */ /* REMOVED Flexbox */
-    /* justify-content: center; */
-    /* align-items: center; */
 }
 
 /* --- Game Column (Container for UI elements) --- */
@@ -81,10 +78,10 @@ canvas#c2canvas {
     width: 100%; /* Take full width available within constraints */
     height: 100%; /* Take full height available */
     max-width: 480px; /* Constrain width like canvas (adjust if needed) */
-    /* pointer-events: none; */ /* Let children handle events */
-    /* display: flex; */ /* REMOVED Flex - children use absolute/relative */
-    /* flex-direction: column; */
-    /* align-items: center; */
+    display: flex; /* Use flex to manage internal layout */
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: space-between; /* Push dock to bottom, windows towards bottom */
+    align-items: center; /* Center children horizontally by default */
 }
 
 
@@ -147,19 +144,40 @@ canvas#c2canvas {
 #play-menu-toggle>svg{ height: 100%; width: 100%; }
 
 /*----- UI DOCK & CONTAINER ----*/
-#ui-dock{ position: absolute; bottom: 0; left: 0; /* Align to bottom-left of .game-column */ width: 100%; display: flex; flex-direction: row-reverse; justify-content: flex-start; z-index: 11; padding: 0 0.5em; }
-#ui-window-container{ position: absolute; bottom: 3.5em; /* Above dock */ left: 0; /* Align to left of .game-column */ width: 100%; display: flex; flex-direction: column-reverse; align-items: flex-end; /* Align windows right */ padding: 0 0.5em; }
+#ui-dock{
+    /* position: absolute; */ /* No longer needed if using flexbox on parent */
+    /* bottom: 0; */
+    /* left: 0; */
+    width: 100%; /* Take full width of .game-column */
+    display: flex;
+    flex-direction: row; /* Changed from row-reverse */
+    justify-content: center; /* Center items horizontally */
+    z-index: 11;
+    padding: 0 0.5em;
+    margin-top: auto; /* Push to bottom in flex column */
+}
+#ui-window-container{
+    /* position: absolute; */ /* No longer needed */
+    /* bottom: 3.5em; */
+    /* left: 0; */
+    width: 100%; /* Take full width of .game-column */
+    display: flex;
+    flex-direction: column; /* Stack windows vertically */
+    align-items: center; /* Center windows horizontally */
+    padding: 0 0.5em;
+    margin-bottom: 0.5em; /* Space above dock */
+}
 
 /*----- CHAT -----*/
 .message{ font-family: "SFPixelate", sans-serif; text-align: left; color: #0006; }
 .message.player-chat{ color: var(--message-font); }
 .message.system-err{ color: #8008 }
 #chat-window-toggle>svg{ height: 100%; width: 100%; }
-#chat-window{ height: 29vh; width: 95%; max-width: 400px; margin-bottom: 0.5em; position: relative; /* Needed for absolute positioning of exit button */ }
-#chat{ height: calc(100% - 1.5em); /* Adjust based on exit button height/padding */ width: 100%; overflow-y: scroll; overscroll-behavior: contain; scrollbar-width: none; -ms-overflow-style: none; }
+#chat-window{ height: 29vh; width: 95%; max-width: 400px; margin-bottom: 0.5em; position: relative; }
+#chat{ height: calc(100% - 1.5em); width: 100%; overflow-y: scroll; overscroll-behavior: contain; scrollbar-width: none; -ms-overflow-style: none; }
 #chat::-webkit-scrollbar { display: none; }
 #chat-client-area{ position: relative; height: 100%; }
-#chat-exit{ font-size: .9em; height: fit-content; width: auto; padding: 2px 4px; /* Adjust padding */ position: absolute; top: -10px; /* Adjust relative to border */ right: -10px; /* Adjust relative to border */ z-index: 13; /* Ensure it's above window border */ }
+#chat-exit{ font-size: .9em; height: fit-content; width: auto; padding: 2px 4px; position: absolute; top: -10px; right: -10px; z-index: 13; }
 
 /*---- STEPS (LADDER QUOTES) ----*/
 #steps-window{ max-height: 33vh; width: 95%; max-width: 400px; margin-bottom: 0.5em; position: relative; }
@@ -169,23 +187,11 @@ canvas#c2canvas {
 /* -----ANIMATION------*/
 @keyframes invalid-input{ 0% {transform: translateX(-4px);} 100% {transform: translateX(4px);} }
 @keyframes pulse-focus{ 0% {background-color: #222;} 100% {background-color: #444;} }
-@keyframes menu-fade-in { 0% { opacity: 0%; transform: translate(-50%, -55%);} 100% { opacity: 100%; transform: translate(-50%, -50%);} } /* Added transform to fade */
+@keyframes menu-fade-in { 0% { opacity: 0%; transform: translate(-50%, -55%);} 100% { opacity: 100%; transform: translate(-50%, -50%);} }
 
 /*----- MEDIA ADJUSTMENTS -----*/
-@media (width < 600px){
-    #play-menu-toggle{ top: 0.5em; right: 0.5em; }
-    #chat-window, #steps-window {
-        width: calc( 100% - 1em );
-        align-self: center;
-        margin-right: 0;
-    }
-    #ui-window-container {
-         align-items: center; /* Center windows horizontally on small screens */
-    }
-    #ui-dock {
-        justify-content: center; /* Center dock items */
-    }
-}
+/* Media query might not be needed now if default is centered */
+/* @media (width < 600px){ ... } */
 
 /*----- COLOR VARIABLES ------*/
 svg{ fill:var(--main-font); }
