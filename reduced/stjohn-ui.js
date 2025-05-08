@@ -1,46 +1,26 @@
 //----- UI UPDATE LOOP REMOVED -----
 /*
-function UpdateUI(){
-    // No longer needed - updates are triggered by C2
-}
-function GameLoop() {
-    // No longer needed
-    // requestAnimationFrame(GameLoop);
-}
+function UpdateUI(){ ... }
+function GameLoop() { ... }
 // requestAnimationFrame(GameLoop);
 */
 
 // --- HIDE CONSTRUCT UI ELEMS ---
 /* <<< This function remains unused
-function hideConstructUI(){
-    // ... function body ...
-}
+function hideConstructUI(){ ... }
 */
 
 
-//----- CHAT FUNCTIONS ----- (Sending via HTML, Receiving Triggered by C2) -----
+//----- CHAT FUNCTIONS ----- (Receiving Triggered by C2, Sending via C2 Elements) -----
 
-function sendMessage(){
-    // Sending via HTML UI is KEPT ACTIVE (Test removing if issues persist)
-    let chatContent = $("#chat-input").val();
-    if (!chatContent || chatContent.trim() === "") return; // Don't send empty messages
+/* --- Sending functions REMOVED - Handled by C2 TextBox/Button ---
+function sendMessage(){ ... }
+// $("#chat-input").on("keydown",sendMessageOnEnter);
+function sendMessageOnEnter(e){ ... }
+*/
 
-    let username =  getUsername();
-    // Call the C2 function to handle adding the chat locally and sending via Multiplayer
-    c2_callFunction( "addChat", [username, chatContent]);
-    $("#chat-input").val(""); // Clear input after sending
-}
-
-// Enter key registration for HTML input is KEPT ACTIVE
-$("#chat-input").on("keydown",sendMessageOnEnter);
-
-function sendMessageOnEnter(e){
-    if (e.code == "Enter"){
-        sendMessage();
-    }
-}
-
-// --- getUsername is needed for sendMessage ---
+// --- getUsername is likely no longer needed by this script ---
+/*
 function getUsername(){
     try {
         const usernameVar = cr_getC2Runtime().all_global_vars.find( (e) => e.name=="Username");
@@ -50,22 +30,25 @@ function getUsername(){
         return "Guest";
     }
 }
+*/
 
-// --- Chat display function - NOW TRIGGERED BY C2 ---
+// --- Chat display function - Triggered by C2 ---
 window.c2_receivedChatUpdate = function() {
-    // console.log("c2_receivedChatUpdate called"); // Optional log
-    let logsObject = getMessageLogsFromRuntime();
+    // console.log("c2_receivedChatUpdate called"); // Optional log for debugging
+    let logsObject = getMessageLogsFromRuntime(); // Read C2 array when told to
     if (!logsObject || !logsObject.arr) {
+        console.warn("c2_receivedChatUpdate: LogMessages array not found or invalid.");
         return;
     }
 
     toggleMessageNotification("on"); // Show notification if window is hidden
-    let html = formatMessageLogsToHTML(logsObject.arr);
-    $("#chat").html(html);
+    let html = formatMessageLogsToHTML(logsObject.arr); // Generate HTML
+    $("#chat").html(html); // Update the HTML display
 
     // Auto-scroll to bottom
     var chatArea = document.getElementById('chat');
     if (chatArea) {
+        // Scroll down only if the user isn't scrolled up to read history
         const isScrolledToBottom = chatArea.scrollHeight - chatArea.clientHeight <= chatArea.scrollTop + 20;
         if(isScrolledToBottom) {
              chatArea.scrollTop = chatArea.scrollHeight;
@@ -74,7 +57,7 @@ window.c2_receivedChatUpdate = function() {
 }
 
 function formatMessageLogsToHTML(logs){
-    // (This function remains the same)
+    // (This function remains the same as the previous version)
     let html = "";
     for (let i = 0; i < logs.length; i++){
         if (!logs[i] || !logs[i][0] || typeof logs[i][0][0] === 'undefined') {
@@ -104,45 +87,42 @@ function formatMessageLogsToHTML(logs){
     return html;
 }
 
+// Reads the C2 LogMessages array - called only by c2_receivedChatUpdate
 function getMessageLogsFromRuntime(){
-    // (Still potentially fragile, but only called when C2 triggers update)
     try {
-        const msgLogObj = cr_getC2Runtime().getObjectByUID(29);
-        return msgLogObj ? msgLogObj : { arr: [] };
+        const msgLogObj = cr_getC2Runtime().getObjectByUID(29); //MessageLogs array UID is 29
+        // Return a default empty structure if not found or invalid
+        return msgLogObj && Array.isArray(msgLogObj.arr) ? msgLogObj : { arr: [] };
     } catch (e) {
         console.error("Error getting LogMessages from C2 runtime:", e);
-        return { arr: [] };
+        return { arr: [] }; // Fallback on error
     }
 }
 
 // --- Flag functions REMOVED ---
-/*
-function getChatUpdateFlagFromRuntime() { ... }
-function resetChatUpdateFlagInRuntime() { ... }
-function getStepsUpdateFlagFromRuntime() { ... }
-function resetStepsUpdateFlagInRuntime() { ... }
-*/
+
 
 //  ----30 TEXT HANDLING ----- (Triggered by C2) ----
-
 window.c2_receivedStepsUpdate = function() {
-    // console.log("c2_receivedStepsUpdate called"); // Optional log
-    let text = get30TextFromRuntime();
-    $("#steps").text( text );
+    // console.log("c2_receivedStepsUpdate called"); // Optional log for debugging
+    let text = get30TextFromRuntime(); // Read C2 text object when told to
+    $("#steps").text( text ); // Update HTML display
+
+    // Update progress bar based on the text
     let progressMatch = text.match(/(\d+(\.\d+)?)\s*%/g);
     let progressValue = progressMatch ? parseFloat(progressMatch[0]) : 0;
-    let progressPercent = progressValue / 30;
+    let progressPercent = progressValue / 30; // Assuming 30 is max value
     updateGameProgressBar(progressPercent);
 }
 
+// Reads the C2 Steps text object - called only by c2_receivedStepsUpdate
 function get30TextFromRuntime(){
-    // (Only called when C2 triggers update)
     try {
-        const textObj = cr_getC2Runtime().getObjectByUID(21);
-        return textObj ? textObj.text : "";
+        const textObj = cr_getC2Runtime().getObjectByUID(21); // Steps Text UID
+        return textObj ? textObj.text : ""; // Return empty string if object not found
     } catch (e) {
-        console.error("Error getting 30Text from C2 runtime:", e);
-        return "";
+        console.error("Error getting Steps Text from C2 runtime:", e);
+        return ""; // Fallback on error
     }
 }
 
