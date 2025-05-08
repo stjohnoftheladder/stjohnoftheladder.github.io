@@ -66,16 +66,17 @@ canvas#c2canvas {
     height: 100%;
     z-index: 10; /* Above canvas */
     pointer-events: none; /* Ignore clicks on the container itself */
-    overflow: hidden;
+    overflow: hidden; /* Prevent content spill */
 }
 
 /* --- Game Column (Container for UI elements) --- */
 .game-column {
-    position: absolute; /* Position absolutely within #UI */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Center using transform */
-    width: 100%; /* Take full width available within constraints */
+    position: relative; /* Back to relative for normal flow within #UI */
+    /* top: 50%; */     /* REMOVED */
+    /* left: 50%; */    /* REMOVED */
+    /* transform: translate(-50%, -50%); */ /* REMOVED */
+    margin: 0 auto; /* Center horizontally */
+    width: 100%; /* Let max-width control the actual width */
     height: 100%; /* Take full height available */
     max-width: 480px; /* Constrain width like canvas (adjust if needed) */
     display: flex; /* Use flex to manage internal layout */
@@ -145,21 +146,15 @@ canvas#c2canvas {
 
 /*----- UI DOCK & CONTAINER ----*/
 #ui-dock{
-    /* position: absolute; */ /* No longer needed if using flexbox on parent */
-    /* bottom: 0; */
-    /* left: 0; */
     width: 100%; /* Take full width of .game-column */
     display: flex;
-    flex-direction: row; /* Changed from row-reverse */
+    flex-direction: row;
     justify-content: center; /* Center items horizontally */
     z-index: 11;
     padding: 0 0.5em;
     margin-top: auto; /* Push to bottom in flex column */
 }
 #ui-window-container{
-    /* position: absolute; */ /* No longer needed */
-    /* bottom: 3.5em; */
-    /* left: 0; */
     width: 100%; /* Take full width of .game-column */
     display: flex;
     flex-direction: column; /* Stack windows vertically */
@@ -190,8 +185,7 @@ canvas#c2canvas {
 @keyframes menu-fade-in { 0% { opacity: 0%; transform: translate(-50%, -55%);} 100% { opacity: 100%; transform: translate(-50%, -50%);} }
 
 /*----- MEDIA ADJUSTMENTS -----*/
-/* Media query might not be needed now if default is centered */
-/* @media (width < 600px){ ... } */
+/* @media (width < 600px){ ... } */ /* Should not be needed now */
 
 /*----- COLOR VARIABLES ------*/
 svg{ fill:var(--main-font); }
