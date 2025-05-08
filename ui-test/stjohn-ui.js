@@ -1,118 +1,97 @@
+
+
 //----- UI UPDATE LOOP ------
 
 function UpdateUI(){
     display30Text();
-    displayMessages();      // Checks the C2 flag and updates if needed
-    // hideConstructUI();   // <<< KEPT COMMENTED OUT: Do not hide C2 elements
+    displayMessages();
+    hideConstructUI();
 }
 
-// Keep setInterval for UI updates (checking the flag)
-setInterval(UpdateUI, 100); // Check flag more frequently maybe? Or keep at 250ms.
+setInterval(UpdateUI, 250);
 
 // --- HIDE CONSTRUCT UI ELEMS ---
-/* <<< This function remains unused
-function hideConstructUI(){
-    // ... function body ...
-}
+/*
+These elements need to be set to visible false because
+they need to still exist for the UI to read them,
+but we don't want to duplicate UI
 */
 
-
-//----- CHAT FUNCTIONS ----- (Flag-based Update Logic) -----
-
-function sendMessage(){
-    // Sending via HTML UI remains the same
-    let chatContent = $("#chat-input").val();
-    if (!chatContent || chatContent.trim() === "") return; // Don't send empty messages
-
-    let username =  getUsername();
-    // Call the C2 function to handle adding the chat locally and sending via Multiplayer
-    // This will also trigger setting the ChatLogUpdated flag in C2 via AddLog
-    c2_callFunction( "addChat", [username, chatContent]);
-    $("#chat-input").val(""); // Clear input after sending
+function hideConstructUI(){
+    //30Text
+    cr_getC2Runtime().getObjectByUID(21).visible = false;
+    cr_getC2Runtime().getObjectByUID(21).y-=2000; //sends elem to the shadow realm
+    //TextLogText
+    cr_getC2Runtime().getObjectByUID(12).visible = false;
+    cr_getC2Runtime().getObjectByUID(12).y-=2000;
+    //ChatSend
+    cr_getC2Runtime().getObjectByUID(32).visible = false;
+    cr_getC2Runtime().getObjectByUID(32).y-=2000;
+    //ChatTextBox
+    cr_getC2Runtime().getObjectByUID(31).visible = false;
+    cr_getC2Runtime().getObjectByUID(68).y-=2000;
+    //O_DIALOG
+    cr_getC2Runtime().getObjectByUID(68).visible = false;
+    cr_getC2Runtime().getObjectByUID(68).y-=2000;
 }
 
-// Enter key registration for HTML input remains the same
-$("#chat-input").on("keydown",sendMessageOnEnter);
 
+//----- CHAT FUNCTIONS ----- TODO
+
+function sendMessage(){
+    let chatContent = $("#chat-input").val();
+    let username =  getUsername();
+    let chatArray = c2_callFunction( "addChat", [username, chatContent]);
+    displayMessages();
+    $("#chat-input").val("");
+}
+$("#chat-input").on("keydown",sendMessageOnEnter);
 function sendMessageOnEnter(e){
     if (e.code == "Enter"){
         sendMessage();
     }
 }
 
-// --- getUsername might be used elsewhere, so it's kept ---
+// HACKY -- ideally a function is built in Construct to return this data
+// This function is an interface get data from the Construct 2 runtime
 function getUsername(){
-    try {
-        const usernameVar = cr_getC2Runtime().all_global_vars.find( (e) => e.name=="Username");
-        return usernameVar ? usernameVar.data : "Guest";
-    } catch (e) {
-        console.error("Error getting username from C2 runtime:", e);
-        return "Guest";
-    }
+    return cr_getC2Runtime().all_global_vars.find( (e) => e.name=="Username").data;
 }
 
-// --- Chat display functions REVISED to use C2 flag ---
+var lastLogHTML;
 
 function displayMessages(){
-    let updateFlag = getChatUpdateFlagFromRuntime();
-
-    // Only update if the flag is set by C2
-    if (updateFlag !== 1) {
-        return; // No update needed
+    let logs = getMessageLogsFromRuntime().arr;
+    let html = formatMessageLogsToHTML(logs);
+    if( lastLogHTML == html){
+        return 0;
     }
-
-    // Flag is set, proceed with update
-    // console.log("ChatLogUpdated flag is 1, updating display."); // Optional log
-    let logsObject = getMessageLogsFromRuntime(); // Get the C2 array object
-    if (!logsObject || !logsObject.arr) {
-        // console.warn("LogMessages array not found or invalid."); // Optional warning
-        resetChatUpdateFlagInRuntime(); // Reset flag even if logs are bad to avoid loop
-        return;
-    }
-
     toggleMessageNotification("on");
-    let html = formatMessageLogsToHTML(logsObject.arr); // Generate HTML from the array
+    lastLogHTML = html;
     $("#chat").html(html);
-
-    // Auto-scroll to bottom
-    var chatArea = document.getElementById('chat');
-    if (chatArea) {
-        const isScrolledToBottom = chatArea.scrollHeight - chatArea.clientHeight <= chatArea.scrollTop + 20;
-        if(isScrolledToBottom) {
-             chatArea.scrollTop = chatArea.scrollHeight;
-        }
-    } else {
-        // console.warn("Chat area element not found for scrolling."); // Optional warning
-    }
-
-    // Reset the flag in C2 after updating the display
-    resetChatUpdateFlagInRuntime();
 }
 
+// HACKY -- ideally we encode information 
+// into the array of Messages.log
+// and use that to prepare the messages
 function formatMessageLogsToHTML(logs){
-    // (This function remains the same as the previous version)
-    let html = "";
+    let html = ""; //stores html for message log
     for (let i = 0; i < logs.length; i++){
-        if (!logs[i] || !logs[i][0] || typeof logs[i][0][0] === 'undefined') {
-            continue;
-        }
         html+="\n"
-        let message = String(logs[i][0][0]);
+        let message = logs[i][0][0];
         let klass = "message ";
-        if( message.match(/^<[\w\s]+> /g)){
-            message = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        if( message.match(/^<[\w]+> /g)){ //  checks for pattern of username in message
+            message = message.replaceAll("<", "&lt").replaceAll(">", "&gt");
             klass += "player-chat ";
             html += `<div class="`+klass+`">`+message+`</div>`;
             continue;
         }
-        if( message.match(/err/i) ){
+        if( message.match(/err/i) ){ //checks for "err" hopefully catching "error" at the same time
             klass += "system-err ";
-            message = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
             html += `<div class="`+klass+`">`+message+`</div>`;
             continue;
         }
         else{
-            message = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
             html += `<div class="`+klass+`">`+message+`</div>`;
             continue;
         }
@@ -120,118 +99,132 @@ function formatMessageLogsToHTML(logs){
     return html;
 }
 
-// Function to get the C2 LogMessages array (kept the same, still potentially fragile)
+// HACKY ideally a function is implemented 
+// in Construct to return this data
 function getMessageLogsFromRuntime(){
-    try {
-        const msgLogObj = cr_getC2Runtime().getObjectByUID(29); //MessageLogs array UID is 29
-        return msgLogObj ? msgLogObj : { arr: [] };
-    } catch (e) {
-        console.error("Error getting LogMessages from C2 runtime:", e);
-        return { arr: [] };
-    }
+    return cr_getC2Runtime().getObjectByUID(29) //MessageLogs array UID is 29
 }
 
-// --- NEW Functions to interact with the C2 flag ---
-function getChatUpdateFlagFromRuntime() {
-    try {
-        const flagVar = cr_getC2Runtime().all_global_vars.find( (e) => e.name=="ChatLogUpdated");
-        return flagVar ? flagVar.data : 0; // Default to 0 if not found
-    } catch (e) {
-        console.error("Error getting ChatLogUpdated flag from C2 runtime:", e);
-        return 0; // Fallback on error
-    }
-}
+//  ----30 TEXT HANDLING ---------
 
-function resetChatUpdateFlagInRuntime() {
-    try {
-        c2_callFunction("ResetChatFlag");
-    } catch (e) {
-        console.error("Error calling C2 function ResetChatFlag:", e);
-    }
-}
-
-
-//  ----30 TEXT HANDLING --------- (Unchanged)
-// ... (rest of the 30 Text handling functions) ...
 function display30Text(){
     let text = get30TextFromRuntime();
     $("#steps").text( text );
-    let progressMatch = text.match(/(\d+(\.\d+)?)\s*%/g);
-    let progressValue = progressMatch ? parseFloat(progressMatch[0]) : 0;
-    let progressPercent = progressValue / 30;
+    let progressPercent = Number( text.match(/\d+\.\d\s/g) )/30;
     updateGameProgressBar(progressPercent);
 }
+
+// HACKY ideally a function is implemented in Construct
+// to return this data
 function get30TextFromRuntime(){
-    try {
-        const textObj = cr_getC2Runtime().getObjectByUID(21);
-        return textObj ? textObj.text : "";
-    } catch (e) {
-        console.error("Error getting 30Text from C2 runtime:", e);
-        return "";
-    }
-}
-function updateGameProgressBar(percent){
-    percent = Math.max(0, Math.min(1, percent)) * 100;
-    let progress_gradient = "linear-gradient( 0deg, var(--red-accent) "+percent+"%, #9999 "+percent+"%)";
-    $("#game-progress-bar").css("background", progress_gradient);
+    let text30 = cr_getC2Runtime().getObjectByUID(21).text;
+    return text30 ? text30 : "";
 }
 
-//---- HANDLE RESIZING ----- (Unchanged)
-// ... (rest of the resizing functions) ...
+//---- HANDLE RESIZING -----
+
 function placeUI(){
     $("#UI").css( "width", $("#c2canvas").css("width") );
     $("#UI").css( "height", $("#c2canvas").css("height") );
 }
-setTimeout(placeUI, 300);
-setTimeout(placeUI, 1000);
-setTimeout(placeUI, 5000);
+setTimeout(placeUI, 300);//gives time for UI to load
+setTimeout(placeUI, 1000); //try again for slow connection
+setTimeout(placeUI, 5000); //try again for really slow connection
 addEventListener('resize', ()=>{
     setTimeout(placeUI, 50)
 })
 
-//---- UI TOGGLES ------- (Unchanged)
-// ... (rest of the toggle functions) ...
+//---- UI TOGGLES -------
+
 function toggleDisplay(itemId){
+        
     if( $(itemId).css("visibility") === "hidden"){
         $(itemId).css("visibility", "");
-        $(itemId).css("height", "");
+        $(itemId).css("height", ""); 
         $(itemId).css("opacity", "");
-        $(itemId).css("position", "");
+        $(itemId).css("position", ""); //empty string restores imported styling
         return;
     }
     else{
-        $(itemId).css("visibility", "hidden");
-        $(itemId).css("height", "0px");
-        $(itemId).css("opacity", "0"); // Changed to 0 for hidden
+        $(itemId).css("visibility", "hidden"); 
+        $(itemId).css("height", "0px"); //keep hidden elements from taking up space in flex containers
+        $(itemId).css("opacity", "100");
         $(itemId).css("position", "absolute");
         return;
     }
 }
-function toggleSplash(){ toggleDisplay(".login-page"); }
-function toggleMenu(){ toggleDisplay("#play-menu"); }
+
+function toggleSplash(){
+    toggleDisplay(".login-page");
+}
+function toggleMenu(){
+    toggleDisplay("#play-menu");
+}
 function toggleMessageNotification(state){
-    if( state == "on" && ($("#chat-window").css("visibility") == "hidden") ){
-        $("#chat-window-toggle").addClass("red-bg"); return;
+    if( 
+        state == "on" && 
+        ($("#chat-window").css("visibility") == "hidden")
+    ){
+        $("#chat-window-toggle").addClass("red-bg");
+        return;
     }
-    if(state == "off" || ($("#chat-window").css("visibility") != "hidden")){
-        $("#chat-window-toggle").removeClass("red-bg"); return;
+    if(state == "off"){
+        $("#chat-window-toggle").removeClass("red-bg");
+        return;
     }
 }
 function toggleChat(){
     toggleDisplay("#chat-window");
-    if ($("#chat-window").css("visibility") != "hidden") {
-        toggleMessageNotification("off");
-    }
+    toggleMessageNotification("off");
 }
-function toggleSteps(){ toggleDisplay("#steps-window"); }
+function toggleSteps(){
+    toggleDisplay("#steps-window");
+}
+
+//hide menu and chat initially
 toggleMenu();
 toggleChat();
+
 function toggleValueOnOff(itemId){
-    if ($(itemId).attr("value") == "on"){ $(itemId).attr("value", "off"); return "off"; }
-    if ($(itemId).attr("value") == "off"){ $(itemId).attr("value", "on"); return "on"; }
+    if ($(itemId).attr("value") == "on"){
+        $(itemId).attr("value", "off");
+        return "off";
+    }
+    if ($(itemId).attr("value") == "off"){
+        $(itemId).attr("value", "on");
+        return "on";
+    }
 }
 async function toggleAudio(){
     let value = toggleValueOnOff("#menu-mute");
     $("#audio-state").text(value);
 }
 
+
+// ADJUST ZOOM OF THE BACKGROUND -- NOT IMPLEMENTED
+
+/*
+$("#zoom-slider").on("input", function(e) {
+    let zoom_level = $(e.target).val();
+    $("#zoom-level").text( zoom_level ) //update Debug read
+    updateGameProgressBar(zoom_level/0.3);
+    zoomMapUpdate(zoom_level);
+
+});
+
+$("#zoom-slider").trigger("input");
+*/
+function updateGameProgressBar(percent){
+    let progress_gradient = "linear-gradient( 0deg, var(--red-accent) "+percent+"%, #9999 "+percent+"%)";
+    $("#game-progress-bar").css("background", progress_gradient);
+}
+/*
+function zoomMapUpdate(val){
+    let center      = "translateY("+80*val+"px) ";
+    let zoom        = "perspective(500px) translateZ("+(400-(3*val))+"px) ";
+    
+    $("#earth-map").css("transform",   center+ zoom);
+
+}
+
+*/
