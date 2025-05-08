@@ -60,10 +60,11 @@ function getUsername(){
 
 var lastLogHTML;
 
-function displayMessages(){
-    let logs = getMessageLogsFromRuntime().arr;
+function displayMessages() {
+    // Changed: Removed.arr as getMessageLogsFromRuntime now returns the array directly
+    let logs = getMessageLogsFromRuntime();
     let html = formatMessageLogsToHTML(logs);
-    if( lastLogHTML == html){
+    if (lastLogHTML == html) {
         return 0;
     }
     toggleMessageNotification("on");
@@ -71,39 +72,61 @@ function displayMessages(){
     $("#chat").html(html);
 }
 
-// HACKY -- ideally we encode information 
+// HACKY -- ideally we encode information
 // into the array of Messages.log
 // and use that to prepare the messages
-function formatMessageLogsToHTML(logs){
+function formatMessageLogsToHTML(logs) {
     let html = ""; //stores html for message log
-    for (let i = 0; i < logs.length; i++){
-        html+="\n"
-        let message = logs[i][0][0];
+    for (let i = 0; i < logs.length; i++) {
+        html += "\n"
+        // This access pattern logs[i] is preserved
+        let message = logs[i];
         let klass = "message ";
-        if( message.match(/^<[\w]+> /g)){ //  checks for pattern of username in message
+        if (message.match(/^<[\w]+> /g)) { //  checks for pattern of username in message
             message = message.replaceAll("<", "&lt").replaceAll(">", "&gt");
             klass += "player-chat ";
-            html += `<div class="`+klass+`">`+message+`</div>`;
+            html += `<div class="` + klass + `">` + message + `</div>`;
             continue;
         }
-        if( message.match(/err/i) ){ //checks for "err" hopefully catching "error" at the same time
+        if (message.match(/err/i)) { //checks for "err" hopefully catching "error" at the same time
             klass += "system-err ";
-            html += `<div class="`+klass+`">`+message+`</div>`;
+            html += `<div class="` + klass + `">` + message + `</div>`;
             continue;
-        }
-        else{
-            html += `<div class="`+klass+`">`+message+`</div>`;
+        } else {
+            html += `<div class="` + klass + `">` + message + `</div>`;
             continue;
         }
     }
     return html;
 }
 
-// HACKY ideally a function is implemented 
+// HACKY ideally a function is implemented
 // in Construct to return this data
-function getMessageLogsFromRuntime(){
-    return cr_getC2Runtime().getObjectByUID(29) //MessageLogs array UID is 29
+function getMessageLogsFromRuntime() {
+    // Changed: Get the Text object instance by UID 12 (ChatLogText)
+    const chatLogTextObject = cr_getC2Runtime().getObjectByUID(12);
+    let processedMessages =;
+
+    if (chatLogTextObject && typeof chatLogTextObject.text === 'string') {
+        // Split the text content by newlines
+        const lines = chatLogTextObject.text.split('\n');
+        // Transform each line to match the expected structure [[line1]], [[line2]],... ]
+        // This ensures logs[i] in formatMessageLogsToHTML works correctly.
+        processedMessages = lines.map(line => {
+            // Filter out empty lines that might result from trailing newlines
+            if (line.trim()!== "") {
+                return [[line]];
+            }
+            return null; // Will be filtered out later
+        }).filter(item => item!== null); // Remove null entries from empty lines
+    }
+    // Return the processed array directly
+    return processedMessages;
 }
+
+// Assuming lastLogHTML and toggleMessageNotification are defined elsewhere
+// let lastLogHTML = "";
+// function toggleMessageNotification(status) { /*... */ }
 
 //  ----30 TEXT HANDLING ---------
 
