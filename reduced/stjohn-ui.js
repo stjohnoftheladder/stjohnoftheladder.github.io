@@ -54,46 +54,28 @@ function getUsername(){
 // --- Chat display functions REVISED to reset flag *before* processing ---
 
 function displayMessages(){
+    /*
     let updateFlag = getChatUpdateFlagFromRuntime();
-
-    // Only update if the flag is set by C2
     if (updateFlag !== 1) {
-        return; // No update needed
-    }
-
-    // --- MODIFICATION START ---
-    // Flag is 1. Reset it *immediately* in C2 before doing anything else.
-    // console.log("ChatLogUpdated flag is 1, resetting and updating display."); // Optional log
-    resetChatUpdateFlagInRuntime();
-    // --- MODIFICATION END ---
-
-
-    // Now proceed with getting logs and updating display using the data
-    // that was present when the flag *was* 1.
-    let logsObject = getMessageLogsFromRuntime(); // Get the C2 array object
-    if (!logsObject || !logsObject.arr) {
-        // console.warn("LogMessages array not found or invalid after flag reset."); // Optional warning
-        // Flag was already reset, just exit.
         return;
     }
-
+    resetChatUpdateFlagInRuntime();
+    let logsObject = getMessageLogsFromRuntime();
+    if (!logsObject || !logsObject.arr) {
+        return;
+    }
     toggleMessageNotification("on");
-    let html = formatMessageLogsToHTML(logsObject.arr); // Generate HTML from the array
+    let html = formatMessageLogsToHTML(logsObject.arr);
     $("#chat").html(html);
-
-    // Auto-scroll to bottom
     var chatArea = document.getElementById('chat');
     if (chatArea) {
         const isScrolledToBottom = chatArea.scrollHeight - chatArea.clientHeight <= chatArea.scrollTop + 20;
         if(isScrolledToBottom) {
              chatArea.scrollTop = chatArea.scrollHeight;
         }
-    } else {
-        // console.warn("Chat area element not found for scrolling."); // Optional warning
     }
-
-    // Flag was already reset at the beginning of the 'if' block.
-    // resetChatUpdateFlagInRuntime(); // <<< MOVED TO EARLIER
+    */
+    // Function body intentionally left empty for testing
 }
 
 function formatMessageLogsToHTML(logs){
