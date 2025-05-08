@@ -1,14 +1,9 @@
 //----- UI UPDATE LOOP REMOVED -----
-/*
-function UpdateUI(){ ... }
-function GameLoop() { ... }
-// requestAnimationFrame(GameLoop);
-*/
+// Updates are now triggered directly by Construct 2 events via Browser plugin
 
-// --- HIDE CONSTRUCT UI ELEMS ---
-/* <<< This function remains unused
-function hideConstructUI(){ ... }
-*/
+// --- HIDE CONSTRUCT UI ELEMS REMOVED ---
+// C2 elements used for input should be visible in C2 editor.
+// C2 elements used for display should be invisible in C2 editor.
 
 
 //----- CHAT FUNCTIONS ----- (Receiving Triggered by C2, Sending via C2 Elements) -----
@@ -32,12 +27,12 @@ function getUsername(){
 }
 */
 
-// --- Chat display function - Triggered by C2 ---
+// --- Chat display function - Triggered by C2 via Browser.ExecuteJavaScript ---
 window.c2_receivedChatUpdate = function() {
     // console.log("c2_receivedChatUpdate called"); // Optional log for debugging
     let logsObject = getMessageLogsFromRuntime(); // Read C2 array when told to
     if (!logsObject || !logsObject.arr) {
-        console.warn("c2_receivedChatUpdate: LogMessages array not found or invalid.");
+        console.warn("c2_receivedChatUpdate: LogMessages array (UID 29) not found or invalid.");
         return;
     }
 
@@ -57,28 +52,32 @@ window.c2_receivedChatUpdate = function() {
 }
 
 function formatMessageLogsToHTML(logs){
-    // (This function remains the same as the previous version)
+    // Formats the C2 array data into HTML for display
     let html = "";
     for (let i = 0; i < logs.length; i++){
+        // Basic validation of log entry structure
         if (!logs[i] || !logs[i][0] || typeof logs[i][0][0] === 'undefined') {
+            console.warn("Invalid chat log entry structure at index:", i, logs[i]);
             continue;
         }
         html+="\n"
         let message = String(logs[i][0][0]);
         let klass = "message ";
+        // Basic detection of player vs system messages based on format
+        // Updated regex to allow spaces in usernames
         if( message.match(/^<[\w\s]+> /g)){
-            message = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            message = message.replace(/</g, "&lt;").replace(/>/g, "&gt;"); // Basic HTML sanitization
             klass += "player-chat ";
             html += `<div class="`+klass+`">`+message+`</div>`;
             continue;
         }
-        if( message.match(/err/i) ){
+        if( message.match(/err/i) ){ // Simple error detection
             klass += "system-err ";
             message = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
             html += `<div class="`+klass+`">`+message+`</div>`;
             continue;
         }
-        else{
+        else{ // Default system message style
             message = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
             html += `<div class="`+klass+`">`+message+`</div>`;
             continue;
@@ -89,17 +88,22 @@ function formatMessageLogsToHTML(logs){
 
 // Reads the C2 LogMessages array - called only by c2_receivedChatUpdate
 function getMessageLogsFromRuntime(){
+    // Accesses the C2 runtime to get the array object by its UID (29)
+    // Includes basic error handling and default return value
     try {
-        const msgLogObj = cr_getC2Runtime().getObjectByUID(29); //MessageLogs array UID is 29
-        // Return a default empty structure if not found or invalid
+        const c2Runtime = cr_getC2Runtime();
+        if (!c2Runtime) {
+             console.error("getMessageLogsFromRuntime: C2 Runtime not available.");
+             return { arr: [] };
+        }
+        const msgLogObj = c2Runtime.getObjectByUID(29); //MessageLogs array UID is 29
+        // Ensure the object exists and has the expected 'arr' property which is an array
         return msgLogObj && Array.isArray(msgLogObj.arr) ? msgLogObj : { arr: [] };
     } catch (e) {
-        console.error("Error getting LogMessages from C2 runtime:", e);
+        console.error("Error getting LogMessages (UID 29) from C2 runtime:", e);
         return { arr: [] }; // Fallback on error
     }
 }
-
-// --- Flag functions REMOVED ---
 
 
 //  ----30 TEXT HANDLING ----- (Triggered by C2) ----
@@ -108,27 +112,35 @@ window.c2_receivedStepsUpdate = function() {
     let text = get30TextFromRuntime(); // Read C2 text object when told to
     $("#steps").text( text ); // Update HTML display
 
-    // Update progress bar based on the text
-    let progressMatch = text.match(/(\d+(\.\d+)?)\s*%/g);
-    let progressValue = progressMatch ? parseFloat(progressMatch[0]) : 0;
-    let progressPercent = progressValue / 30; // Assuming 30 is max value
+    // Update progress bar based on the text (extracts number before '%')
+    // Updated regex to handle potential decimals and ensure % sign
+    let progressMatch = text.match(/(\d+(\.\d+)?)\s*%/);
+    let progressValue = progressMatch ? parseFloat(progressMatch[1]) : 0; // Use group 1 for the number
+    let progressPercent = progressValue / 30; // Assuming 30 steps is 100%
     updateGameProgressBar(progressPercent);
 }
 
 // Reads the C2 Steps text object - called only by c2_receivedStepsUpdate
 function get30TextFromRuntime(){
+    // Accesses the C2 runtime to get the text object by its UID (21)
+    // Includes basic error handling and default return value
     try {
-        const textObj = cr_getC2Runtime().getObjectByUID(21); // Steps Text UID
+        const c2Runtime = cr_getC2Runtime();
+         if (!c2Runtime) {
+             console.error("get30TextFromRuntime: C2 Runtime not available.");
+             return "";
+        }
+        const textObj = c2Runtime.getObjectByUID(21); // Steps Text UID
         return textObj ? textObj.text : ""; // Return empty string if object not found
     } catch (e) {
-        console.error("Error getting Steps Text from C2 runtime:", e);
+        console.error("Error getting Steps Text (UID 21) from C2 runtime:", e);
         return ""; // Fallback on error
     }
 }
 
 // --- Progress Bar Update --- (Unchanged)
 function updateGameProgressBar(percent){
-    percent = Math.max(0, Math.min(1, percent)) * 100;
+    percent = Math.max(0, Math.min(1, percent)) * 100; // Clamp between 0 and 100
     let progress_gradient = "linear-gradient( 0deg, var(--red-accent) "+percent+"%, #9999 "+percent+"%)";
     $("#game-progress-bar").css("background", progress_gradient);
 }

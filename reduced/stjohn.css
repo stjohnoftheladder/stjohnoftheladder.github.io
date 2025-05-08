@@ -31,7 +31,6 @@ html, body {
     box-sizing: inherit;
 }
 
-
 a{
   text-decoration: inherit;
   color: inherit;
@@ -66,15 +65,12 @@ canvas#c2canvas {
     height: 100%;
     z-index: 10; /* Above canvas */
     pointer-events: none; /* Ignore clicks on the container itself */
-    overflow: hidden; /* Prevent content spill */
+    overflow: hidden;
 }
 
 /* --- Game Column (Container for UI elements) --- */
 .game-column {
-    position: relative; /* Back to relative for normal flow within #UI */
-    /* top: 50%; */     /* REMOVED */
-    /* left: 50%; */    /* REMOVED */
-    /* transform: translate(-50%, -50%); */ /* REMOVED */
+    position: relative; /* Normal flow within #UI */
     margin: 0 auto; /* Center horizontally */
     width: 100%; /* Let max-width control the actual width */
     height: 100%; /* Take full height available */
@@ -88,21 +84,21 @@ canvas#c2canvas {
 
 /* --- Pointer Events Handling --- */
 #UI * {
-    pointer-events: none;
+    pointer-events: none; /* Disable events on all children first */
 }
 /* Selectively re-enable pointer events ONLY for necessary interactive elements */
 #UI button,
 #UI a,
-#UI input,
+#UI input, /* Keep just in case other inputs are added */
 #UI label,
-#play-menu,
+#play-menu, /* Allow interaction with popups */
 #steps-window,
-#chat-window,
-#play-menu-toggle,
+#chat-window, /* Allow interaction with chat window (scrolling, closing) */
+#play-menu-toggle, /* Specific buttons */
 #steps-window-toggle,
 #chat-window-toggle,
 #chat-exit {
-     pointer-events: auto;
+     pointer-events: auto; /* Re-enable for these specific elements */
 }
 
 
@@ -121,11 +117,11 @@ canvas#c2canvas {
 
 
 /*----- PIXEL UI -----*/
-/* ... (Pixel styles remain the same) ... */
-.pixel-text-box{ display: inline-block; font-family: "PixelEmulator"; font-size: .9em; width: 50%; text-align: center; border-radius: 0px; border: none; text-decoration: none; margin: .5em; padding: .5em; background-color: var(--button-bg); color: var(--main-font); box-shadow: 4px 4px var(--pixel-shadow-inset) inset, 4px 0px 0px var(--pixel-shadow-bot), 0px 4px 0px var(--pixel-shadow-right), -4px 0px 0px var(--pixel-shadow-left), 0px -4px 0px var(--pixel-shadow-top), 0px 4px 10px var(--blue-shadow), 0px 5px 10px var(--blue-shadow), 0px 0px 15px var(--blue-shadow); }
+/* ... (Rest of your original pixel styles remain the same) ... */
+.pixel-text-box{ display: inline-block; font-family: "PixelEmulator"; font-size: .9em; width: 50%; text-align: center; border-radius: 0px; border: none; text-decoration: none; margin: .5em; padding: .5em; background-color: var(--button-bg); color: var(--main-font); z-index: 5; box-shadow: 4px 4px var(--pixel-shadow-inset) inset, 4px 0px 0px var(--pixel-shadow-bot), 0px 4px 0px var(--pixel-shadow-right), -4px 0px 0px var(--pixel-shadow-left), 0px -4px 0px var(--pixel-shadow-top), 0px 4px 10px var(--blue-shadow), 0px 5px 10px var(--blue-shadow), 0px 0px 15px var(--blue-shadow); }
 .pixel-text-box:hover{ -webkit-filter: brightness(110%); filter: brightness(110%); }
-.pixel-text-box:focus{ outline: -4px solid #aaaaff; text-decoration: none; filter: brightness(110%); box-shadow: inherit, 0px 0px 20px white, 0px 0px 20px white, 0px 0px 20px white; animation: pulse-focus 1s alternate infinite; }
-.pixel-window{ text-align: center; border-radius: 0px; border: solid 8px var(--button-bg); text-decoration: none; margin: .5em; padding: .5em; background-color: var(--window-bg); color: var(--main-font); position: relative; box-shadow: -4px -4px var(--pixel-shadow-inset) inset, 4px 4px #2224 inset, 4px 0px 0px var(--pixel-shadow-bot), 0px 4px 0px var(--pixel-shadow-right), -4px 0px 0px var(--pixel-shadow-left), 0px -4px 0px var(--pixel-shadow-top), 0px 4px 10px var(--blue-shadow), 0px 5px 10px var(--blue-shadow), 0px 0px 15px var(--blue-shadow); }
+.pixel-text-box:focus{ outline: -4px solid #aaaaff; text-decoration: none; filter: brightness(110%); z-index: 6; box-shadow: inherit, 0px 0px 20px white, 0px 0px 20px white, 0px 0px 20px white; animation: pulse-focus 1s alternate infinite; }
+.pixel-window{ text-align: center; border-radius: 0px; border: solid 8px var(--button-bg); text-decoration: none; margin: .5em; padding: .5em; background-color: var(--window-bg); color: var(--main-font); box-shadow: -4px -4px var(--pixel-shadow-inset) inset, 4px 4px #2224 inset, 4px 0px 0px var(--pixel-shadow-bot), 0px 4px 0px var(--pixel-shadow-right), -4px 0px 0px var(--pixel-shadow-left), 0px -4px 0px var(--pixel-shadow-top), 0px 4px 10px var(--blue-shadow), 0px 5px 10px var(--blue-shadow), 0px 0px 15px var(--blue-shadow); }
 .pixel-window>.title-bar{ position: relative; display: flex; top: -16px; margin: -20px 0px 20px -16px; width: calc( 100% + 32px ); padding: 0px; height: 3em; box-shadow: -4px 0px var(--pixel-shadow-inset) inset, 4px 0px 0px var(--pixel-shadow-bot), 0px 4px 0px var(--pixel-shadow-right), -4px 0px 0px var(--pixel-shadow-left), 0px -4px 0px var(--pixel-shadow-top), 0px 4px 10px var(--blue-shadow); text-shadow: 0px 2px 4px #0006; }
 .pixel-window>.title-bar:hover{ -webkit-filter: none; filter: none; }
 .pixel-window>.title-bar>button{ height: 32px; width: 32px; text-align: center; }
@@ -185,9 +181,9 @@ canvas#c2canvas {
 @keyframes menu-fade-in { 0% { opacity: 0%; transform: translate(-50%, -55%);} 100% { opacity: 100%; transform: translate(-50%, -50%);} }
 
 /*----- MEDIA ADJUSTMENTS -----*/
-/* @media (width < 600px){ ... } */ /* Should not be needed now */
+/* Centering should now be handled by default rules */
+/* @media (width < 600px){ ... } */
 
 /*----- COLOR VARIABLES ------*/
 svg{ fill:var(--main-font); }
 :root{ --gold-text: rgb(241, 220, 151); --dark-blue: #224; --red-accent: #934; --main-font: #ccc; --message-font: #000; --blue-shadow: #13292a8f; --button-bg: #333; --pixel-shadow-inset: #fff1; --pixel-shadow-left: #222; --pixel-shadow-right: #222; --pixel-shadow-bot: #111; --pixel-shadow-top: #222; --window-bg: #aaac; --menu-dark-col333dor: #225; }
-
