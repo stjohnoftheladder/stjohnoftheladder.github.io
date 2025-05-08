@@ -21,8 +21,73 @@ body{
 }
 a{
   text-decoration: inherit;
-  color: inherit;  
+  color: inherit;
 }
+
+/*----- POSITIONING & LAYOUT -----*/
+
+/* Ensure canvas container takes space */
+#c2canvasdiv {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Lower z-index */
+}
+canvas#c2canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    touch-action-delay: none;
+    touch-action: none;
+    -ms-touch-action: none;
+    width: 100%; /* Ensure canvas fills its container */
+    height: 100%;
+}
+
+/* Make the UI overlay ignore pointer events by default */
+#UI {
+    position: fixed; /* Changed from absolute to fixed for potentially better viewport handling */
+    top: 0;
+    left: 0; /* Changed from 50% + transform to cover full screen */
+    width: 100%;
+    height: 100%;
+    /* transform: translateX(-50%); */ /* Removed transform */
+    transition: all 500ms;
+    z-index: 10; /* Ensure it's above the canvas */
+    pointer-events: none; /* Ignore clicks on the container itself */
+    overflow: hidden; /* Prevent potential overflow issues */
+}
+
+/* Make ALL children of #UI ignore pointer events initially */
+#UI * {
+    pointer-events: none;
+}
+
+/* Selectively re-enable pointer events ONLY for necessary interactive elements */
+#UI button,
+#UI a,
+#UI input, /* Keep just in case */
+#UI label { /* Labels might need clicks for checkboxes */
+     pointer-events: auto; /* Make buttons, links, etc. clickable */
+}
+
+/* Allow interaction with the content *inside* specific windows/containers */
+#play-menu,
+#steps-window,
+#chat-window { /* Keep chat window rule for toggling visibility */
+    pointer-events: auto;
+}
+
+/* Ensure specific icon buttons are clickable */
+#play-menu-toggle,
+#steps-window-toggle,
+#chat-window-toggle, /* Keep chat toggle clickable if it exists */
+#chat-exit { /* Make the chat close button clickable */
+     pointer-events: auto;
+}
+
 
 /*----- UTILITY AND UNIVERSAL ----*/
 
@@ -30,7 +95,7 @@ a{
     height: 100%;
 }
 .center-vh{
-    position: fixed;
+    position: fixed; /* Use fixed if parent is fixed */
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
@@ -39,19 +104,11 @@ a{
     min-height: max-content;
 }
 .game-column{
-    position: relative;
+    position: relative; /* Keep relative for children positioning */
     display: inline-block;
     height: 100vh;
     width: 100%;
 }
-#UI{
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: all 500ms;
-}
-
 
 
 /*----- PIXEL UI -----*/
@@ -69,9 +126,9 @@ a{
     padding: .5em;
     background-color: var(--button-bg);
     color: var(--main-font);
-    z-index: 5;
+    /* z-index: 5; */ /* Generally avoid z-index on inline elements unless needed */
 
-    box-shadow: 
+    box-shadow:
     4px 4px var(--pixel-shadow-inset) inset,
     4px 0px  0px var(--pixel-shadow-bot),
     0px 4px  0px var(--pixel-shadow-right),
@@ -89,8 +146,8 @@ a{
     outline: -4px solid #aaaaff;
     text-decoration: none;
     filter: brightness(110%);
-    z-index: 6;
-    box-shadow: inherit,
+    /* z-index: 6; */ /* Avoid unnecessary z-index changes */
+    box-shadow: inherit, /* Inherit might not work as expected, list explicitly if needed */
     0px 0px 20px white,
     0px 0px 20px white,
     0px 0px 20px white;
@@ -105,8 +162,10 @@ a{
     padding: .5em;
     background-color: var(--window-bg);
     color: var(--main-font);
+    position: relative; /* Add position relative for z-index context if needed */
+    /* z-index: 7; */ /* Set specific z-index if needed for overlap */
 
-    box-shadow: 
+    box-shadow:
     -4px -4px var(--pixel-shadow-inset) inset,
     4px 4px #2224 inset,
     4px 0px  0px var(--pixel-shadow-bot),
@@ -125,7 +184,7 @@ a{
     width: calc( 100% + 32px );
     padding: 0px;
     height: 3em;
-    box-shadow: 
+    box-shadow:
     -4px 0px var(--pixel-shadow-inset) inset,
     4px 0px  0px var(--pixel-shadow-bot),
     0px 4px  0px var(--pixel-shadow-right),
@@ -164,7 +223,7 @@ a{
     padding: .5em;
     background-color: var(--button-bg);
 
-    box-shadow: 
+    box-shadow:
     -4px 0px var(--pixel-shadow-inset) inset,
     4px 0px  0px var(--pixel-shadow-bot),
     0px 4px  0px var(--pixel-shadow-right),
@@ -181,7 +240,7 @@ a{
     height: 150px;
     float: bottom;
 
-    box-shadow: 
+    box-shadow:
     -4px 0px var(--pixel-shadow-inset) inset,
     4px 0px  0px var(--pixel-shadow-bot),
     0px 4px  0px var(--pixel-shadow-right),
@@ -207,161 +266,15 @@ a{
     background-color: var(--red-accent);
 }
 
-
-
-/*------- TITLE PAGE -------*/
-
-.login-page{
-    min-width: 375px;
-    min-height: 667px;
-    position: relative;
-    display: inline-block;
-    width: 100vw;
-    height: 100vh;
-    z-index: 9;
-}
-#login-page{
-    text-align: center;
-    justify-content: center;
-    background: gold url(assets/images/stjohn_icon-sheet0.png) center no-repeat;
-    background-position: bottom left;
-    animation: 
-        login-fade-in 1s ease-in-out
-        ,bg-slide 75s linear infinite reverse;
-    overflow: hidden;
-    position: fixed;
-}
-#splash-container{
-    margin: auto;
-    position: absolute;
-    min-width: 375px;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translateY(-50%) translateX(-50%);
-    transform: translateY(-50%) translateX(-50%);
-}
-#title-info{
-    position: relative;
-    animation-name: title-top-down;
-    animation-duration: 3s;
-}
-#game-title{
-    font-family: "CyrillicPixel", serif;
-    font-size: 4.25em;
-    position: relative;
-    text-align: center;
-    width: 100%;
-    max-width: 500px;
-    margin: 0px auto;
-    color: var(--gold-text);
-    text-shadow: 0px -2px 0px rgb(255, 247, 153),
-    0px 4px var(--dark-blue),
-    0px 10px 4px var(--blue-shadow),
-    0px 0px 15px var(--blue-shadow);
-}
-#game-subtitle{
-    font-family: "CyrillicPixel", serif;
-    font-size: 1.6em;
-    position:relative;
-    text-align: center;
-    width: 90%;
-    margin: .5em auto;
-    color: var(--gold-text);
-    text-shadow: 0px -2px 0px rgb(255, 247, 153),
-    0px 3px 0px var(--dark-blue),
-    0px 10px 4px var(--blue-shadow),
-    0px 0px 15px var(--blue-shadow);
-}
-#name-entry{
-    position: relative;
-    text-align: center;
-    align-items: center;
-    margin: 3em auto 0px auto;
-    display: grid;
-    justify-items: center;
-    animation-name: entry-bottom-up;
-    animation-duration: 3s;
-    width: 100%;
-}
-#max-message{
-    font-family: "PixelEmulator";
-    color: #CC2;
-    text-shadow: -1px 0px 0px #000, 
-                    1px 0px 0px #000,
-                    0px -1px 0px #000,
-                    0px 1px 0px #000;
-}
-#name-entry>input{
-    padding: 1.2em;
-    color: var(--main-font);
-    margin: 1em;
-    height: 20px;
-    font-family: "SFPixelate";
-    font-size: .9em;
-    transition: transform 0.05s color 0.05s;
-}
-#name-entry>input:placeholder-shown{
-    font-family: "PixelEmulator";
-    font-size: .9em;
-}
-#name-entry>#username.max:focus{
-    color: var(--gold-text);
-    transition: color 0.05s;
-    animation: invalid-input 0.05s infinite alternate;
-}
-
-
-#login{
-    width: 40%;
-}
-#visit-container{
-    position: fixed;
-    bottom: 2em;
-    text-align: center;
-    width: 100%;
-}
-#visit{
-    margin: auto;
-    width: 200px;
-    animation: none;
-}
-
 /*----- PLAY SCREEN-----*/
 
-
-
-#background{
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-}
-
-#ground-level{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: static;
-    width: 100%;
-    height: 100%;
-
-}
-#earth-map{
-    position: fixed;
-    object-fit: cover;
-    z-index: -1;
-    transition: all 1s ease-in-out;
-}
-
-/*---- DROP DOWN MENU ----*/
-
 #play-menu{
-    position: fixed;
+    /* position: fixed; */ /* Already centered with .center-vh */
     width: 300px;
-    top: 50%;
-    left: 50%;
+    /* top: 50%; */
+    /* left: 50%; */
     animation: menu-fade-in 0.2s;
-    z-index: 8;
+    z-index: 12; /* Ensure menu is above other UI elements if needed */
     background-color: #666e;
 }
 #game-progress-bar{
@@ -369,12 +282,13 @@ a{
     transition: background 2s ease-in-out;
     margin: 10px auto;
 }
-/*#menu-mute{ /*TODO*/
-/*}*/
+
 #play-menu-toggle{
     display: inline-block;
     position: absolute;
-    right: 0%;
+    top: 0.5em; /* Adjust positioning as needed */
+    right: 0.5em;
+    z-index: 11; /* Ensure toggle is above other content but below menu */
 }
 #play-menu-toggle>svg{
     height: 100%;
@@ -390,21 +304,19 @@ a{
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-start;
+    z-index: 11; /* Ensure dock buttons are clickable */
 }
 
 #ui-window-container{
     position: absolute;
-    bottom: 3.5em;
+    bottom: 3.5em; /* Adjust based on dock height */
     height: 50%;
     width: 100%;
     display: flex;
     flex-direction: column-reverse;
     justify-content: flex-start;
+    /* pointer-events: none; */ /* Container itself doesn't need events */
 }
-#ui-window-container>.pixel-window:focus{
-    background-color: var(--red-accent);
-}
-
 
 
 /*----- CHAT -----*/
@@ -418,7 +330,7 @@ a{
     color: var(--message-font);
 }
 .message.system-err{
-    color: #8008 
+    color: #8008
 }
 #chat-window-toggle>svg{
     height: 100%;
@@ -426,37 +338,37 @@ a{
 }
 
 #chat-window{
-    right: 0%;
+    /* right: 0%; */ /* Position handled by flex container? */
     height: 29vh;
-    z-index: 7;
+    /* z-index: 7; */ /* Let parent handle z-index */
+    width: 95%; /* Example width */
+    max-width: 400px; /* Example max-width */
+    align-self: flex-end; /* Align to the right within the container */
+    margin-right: 0.5em; /* Add some margin */
+    margin-bottom: 0.5em;
 }
 #chat{
-    height: calc(100% - 3.1em);
+    height: calc(100% - 3.1em); /* Adjust based on input/button height */
     width: 100%;
-    overflow: scroll;
+    overflow-y: scroll; /* Use overflow-y for vertical scroll */
     overscroll-behavior: contain;
-    scrollbar-width: none;
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+    -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
 }
+#chat::-webkit-scrollbar { /* Hide scrollbar for Chrome, Safari, Opera */
+    display: none;
+}
+
 #chat-client-area{
     position: relative;
     height: 100%;
 }
-#message-input{
-    display: grid;
-    position: absolute;
-    grid-template-columns: 75% 25%;
-    bottom: 0px;
-    width: 100%;
-}
-#chat-input{
-    width: 90%;
-    text-align: left;
-    font-family: "SFPixelate";
-    font-size: 1em;
-}
-#chat-send{
-    width: 90%;
-}
+/* REMOVED HTML input styles */
+/*
+#message-input{ ... }
+#chat-input{ ... }
+#chat-send{ ... }
+*/
 #chat-exit{
     font-size: .9em;
     height: fit-content;
@@ -465,39 +377,32 @@ a{
     position: absolute;
     top: -3px;
     right: -3px;
-    
 }
 
 /*---- STEPS (LADDER QUOTES) ----*/
 
 #steps-window{
     max-height: 33vh;
-    z-index: 7;
+    /* z-index: 7; */
+    width: 95%; /* Example width */
+    max-width: 400px; /* Example max-width */
+    align-self: flex-end; /* Align to the right */
+    margin-right: 0.5em;
+    margin-bottom: 0.5em;
 }
 #steps{
-    overflow: scroll;
+    overflow-y: scroll; /* Use overflow-y */
     overscroll-behavior: contain;
     scrollbar-width: none;
+    -ms-overflow-style: none;
+    height: 100%; /* Ensure it takes available height */
 }
-#steps-exit{
-    font-size: .9em;
-    height: fit-content;
-    width: auto;
-    padding-right: 11px;
-    float: right;
+#steps::-webkit-scrollbar {
+    display: none;
 }
-
-
 
 /*---- DEBUG -----*/
-
-#debug{
-    position: fixed;
-    width: 33%;
-    bottom: 0px;
-    z-index: 999;
-    display: flex;
-}
+/* Removed for clarity */
 
 /* -----ANIMATION------*/
 
@@ -514,30 +419,7 @@ a{
 }
 
     /*------ TITLE PAGE ----*/
-@keyframes title-top-down{
-    0%   { top: -300px; opacity:   0%;}
-    100% { top:    0px; opacity: 100%;}
-}
-@keyframes entry-bottom-up{
-    0%   { top: 300px; opacity:   0%;}
-    100% { top:   0px; opacity: 100%;}
-}
-@keyframes bg-slide{
-    0%   {background-size: 175%; background-position: 95% 5%;}
-    33%  {background-size: 150%; background-position: 5% 95%;}
-    50%  {background-size: 125%; background-position: 95% 95%;}
-    100% {background-size: 175%; background-position: 95% 5%;}
-}
-@keyframes bg-slide-high-dpr{
-    0%   {background-size: 250%; background-position: 95% 5%;}
-    33%  {background-size: 275%; background-position: 5% 95%;}
-    66%  {background-size: 250%; background-position: 95% 95%;}
-    100% {background-size: 250%; background-position: 95% 5%;}
-}
-@keyframes login-fade-in{
-    0%    {opacity:   0%;}
-    100%  {opacity: 100%;}
-}
+/* Removed for clarity */
 
     /*----- DROP DOWN MENU -----*/
 
@@ -546,41 +428,32 @@ a{
     100% { top:    50%; opacity: 100%;}
 }
 
-
-
 /*----- MEDIA ADJUSTMENTS -----*/
 
 @media (width < 600px){
 
-
-    #game-title{
-        margin: 0vh 0px 0px 0px;
-    }
-
-    #login-page{
-        animation: bg-slide-high-dpr 75s linear infinite reverse ;
-    }
-    
+    /* Removed login page specific styles for clarity */
 
     #play-menu-toggle{
-        top: 0%;
-        right: 0%;
+        top: 0.5em; /* Adjust as needed */
+        right: 0.5em;
     }
     #chat-window{
         box-sizing: border-box;
-        width: calc( 100% - 14px );
-        left: 0%;
+        width: calc( 100% - 1em ); /* Adjust width */
+        left: 0.5em; /* Adjust positioning */
+        align-self: center; /* Center maybe? */
+        margin-right: 0;
     }
-    #chat-window-toggle{
-        right: 0%;
+    #steps-window{
+        box-sizing: border-box;
+        width: calc( 100% - 1em ); /* Adjust width */
+        left: 0.5em; /* Adjust positioning */
+        align-self: center; /* Center maybe? */
+        margin-right: 0;
     }
-
-    #debug{
-        position: relative;
-    }
-    
-
-
+    /* Removed chat toggle positioning */
+    /* Removed debug positioning */
 }
 
 /*----- COLOR VARIABLES ------*/
@@ -605,5 +478,3 @@ svg{
     --window-bg: #aaac;
     --menu-dark-col333dor: #225;
 }
-
-
