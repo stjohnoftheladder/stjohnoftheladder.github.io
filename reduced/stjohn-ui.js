@@ -17,7 +17,7 @@ function hideConstructUI(){
 */
 
 
-//----- CHAT FUNCTIONS ----- (Flag-based Update Logic) -----
+//----- CHAT FUNCTIONS ----- (Flag-based Update Logic - Revised Reset) -----
 
 function sendMessage(){
     // Sending via HTML UI remains the same
@@ -51,7 +51,7 @@ function getUsername(){
     }
 }
 
-// --- Chat display functions REVISED to use C2 flag ---
+// --- Chat display functions REVISED to reset flag *before* processing ---
 
 function displayMessages(){
     let updateFlag = getChatUpdateFlagFromRuntime();
@@ -61,12 +61,19 @@ function displayMessages(){
         return; // No update needed
     }
 
-    // Flag is set, proceed with update
-    // console.log("ChatLogUpdated flag is 1, updating display."); // Optional log
+    // --- MODIFICATION START ---
+    // Flag is 1. Reset it *immediately* in C2 before doing anything else.
+    // console.log("ChatLogUpdated flag is 1, resetting and updating display."); // Optional log
+    resetChatUpdateFlagInRuntime();
+    // --- MODIFICATION END ---
+
+
+    // Now proceed with getting logs and updating display using the data
+    // that was present when the flag *was* 1.
     let logsObject = getMessageLogsFromRuntime(); // Get the C2 array object
     if (!logsObject || !logsObject.arr) {
-        // console.warn("LogMessages array not found or invalid."); // Optional warning
-        resetChatUpdateFlagInRuntime(); // Reset flag even if logs are bad to avoid loop
+        // console.warn("LogMessages array not found or invalid after flag reset."); // Optional warning
+        // Flag was already reset, just exit.
         return;
     }
 
@@ -85,8 +92,8 @@ function displayMessages(){
         // console.warn("Chat area element not found for scrolling."); // Optional warning
     }
 
-    // Reset the flag in C2 after updating the display
-    resetChatUpdateFlagInRuntime();
+    // Flag was already reset at the beginning of the 'if' block.
+    // resetChatUpdateFlagInRuntime(); // <<< MOVED TO EARLIER
 }
 
 function formatMessageLogsToHTML(logs){
@@ -131,7 +138,7 @@ function getMessageLogsFromRuntime(){
     }
 }
 
-// --- NEW Functions to interact with the C2 flag ---
+// --- Functions to interact with the C2 flag (Unchanged) ---
 function getChatUpdateFlagFromRuntime() {
     try {
         const flagVar = cr_getC2Runtime().all_global_vars.find( (e) => e.name=="ChatLogUpdated");
@@ -234,4 +241,3 @@ async function toggleAudio(){
     let value = toggleValueOnOff("#menu-mute");
     $("#audio-state").text(value);
 }
-
