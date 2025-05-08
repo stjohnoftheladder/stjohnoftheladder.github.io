@@ -1,0 +1,79 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stjohn.css?v=9.7.2024">
+    <title>St. John of the Ladder: An Intro to Orthodoxy Game</title>
+</head>
+<body>
+    
+    <div 
+    id="site-container"
+    class="columns"
+    >
+
+
+        <div class="login-page" id="login-page">
+            <div id="splash-container">
+                <div id="title-info">
+                    <h1 id="game-title">St. John Of The Ladder</h1>
+                    <h2 id="game-subtitle">An Intro To Orthodoxy Game</h2>
+                </div>
+    
+                
+                <div id="name-entry">
+                    <input class="pixel-text-box" type="text" autofocus id="username" placeholder="Enter your name..." maxlength="10" oninput="checkLength(this)" onkeydown="checkEnter(event)">
+					<div id="max-message"></div>
+                    <button id="login" class="pixel-text-box" value="Login" onclick="login()">Climb The Ladder</button>
+                </div>
+            
+            <div id="visit-container">
+                <button id="visit" class="visit red-bg pixel-text-box">Visit a Church Near You</button>
+            </div>
+            
+            </div>
+            
+        </div>
+
+    </div>
+	<script>
+    function checkEnter(event) {
+         if (event.key === 'Enter') {
+            login();
+         }
+    }
+		
+    function login() {
+        var usernameInput = document.getElementById('username');
+        var username = usernameInput.value.trim();
+
+        if (!username) {
+            username = "Pilgrim";
+            usernameInput.value = username;
+        }
+
+        sessionStorage.setItem('username', username);
+
+        // Redirect to the main game URL
+        window.location.href = 'index.html'; 
+    }
+
+    function checkLength(input) {
+        var maxLength = 10;
+        var currentLength = input.value.length;
+
+        if (currentLength >= maxLength) {
+            document.getElementById('max-message').textContent = 'Max reached';
+        } else {
+            document.getElementById('max-message').textContent = '';
+        }
+    }
+	</script>
+    <script>
+		document.getElementById('visit').addEventListener('click', function() {
+		window.open('https://orthodoxyinamerica.org', '_blank');
+		});
+	</script>
+</body>
+<script src="stjohn.js"></script>
+</html>
